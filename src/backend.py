@@ -1,5 +1,6 @@
 import json
 from typing import Tuple,Dict
+import datetime
 
 class Loader():
     def __init__(self,path:str)->None:
@@ -16,24 +17,40 @@ class Loader():
 class Handler():
     def __init__(self)->None:
         self.loader = Loader("Stunden.json")
-        print("Init Handler")
+        self.lookup = {
+            "0":"Mo",
+            "1":"Di",
+            "2":"Mi",
+            "3":"Do",
+            "4":"Fr",
+            "5":"Sa",
+            "6":"So"
+        }
 
-    def Wday_from_date (self,date:Tuple[int,int,int]) -> int:
-        return 0
+    def Wday_from_date (self,date:Tuple[int,int,int]) -> str:
+        y,m,d = date
+        return self.lookup[str(datetime.date(y,m,d).weekday())]
+    
+    def lookup_by_Wday(self,Wday:str)->dict:
+        return self.Stundenplan[Wday]
+
+    def today(self)->str:
+        return self.lookup[str(datetime.date.today().weekday())]
 
     @property
     def Stundenplan(self)->dict:
         return self.loader.get_plan()
 
     def sort(self,day:dict)->dict:
-        lookup:dict={}
-        sort:list=[]
-        new:dict={}
+        lookup:dict = {}
+        sort  :list = []
+        new   :dict = {}
 
         for k in day.keys():
             t = int(k.replace(":",""))
             lookup[t] = {k: day[k]}
             sort.append(t)
+
         sort.sort()
         for k in sort:
             time=list(lookup[k].keys())[0]
@@ -44,8 +61,7 @@ class Handler():
 def main()->None:
     h = Handler()
     r = h.Stundenplan
-    #  r["M"]["7:00"] = {}
-    r["M"] = h.sort(r["M"])
+    r["Mo"] = h.sort(r["Mo"])
     h.loader.set_plan(r)
 
 if __name__=='__main__':

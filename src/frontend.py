@@ -2,13 +2,14 @@ class UI():
     def __init__(self)->None:
         print("Init UI")
 
-    def day(self,lektionen:list)->None:
-        pass
+    def day(self,lektionen:dict)->None:
+        print(lektionen)
     
     def week(self,info:dict)->None:
-        pass
+        print(info)
+
     def lecon(self,info:dict)->None:
-        pass
+        print(info)
 
 def main()->None:
     u = UI()

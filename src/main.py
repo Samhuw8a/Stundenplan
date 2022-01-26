@@ -26,13 +26,25 @@ class Main():
         self.handler = backend
         self.ui      = frontend
         self.args    = Args(cmds,flags)
+        self.weekdays=("Mo","Di","Mi","Do","Fr","Sa","So")
 
     def run(self)->None:
-        print("Running")
         s,f = self.args.parse(sys.argv[1:])
-        print(s)
-        print(f)
+        #  print(self.handler.today())
+        self.cmd_day("Mo")
         exit()
+    
+    def cmd_list (self)->None:
+        pass
+
+    def cmd_day  (self,d:str="")->None:
+        if d not in self.weekdays:
+            d = self.handler.today()
+        info = self.handler.lookup_by_Wday(d)
+        self.ui.day(info)
+
+    def cmd_now  (self)->None:
+        pass
 
 def main()->None:
     handler = Handler()

@@ -1,23 +1,7 @@
-from backend import Handler
+from backend import Handler,Args
 from frontend import UI
 from typing import Tuple,List
 import sys
-
-class Args():
-    def __init__(self,cmds:tuple,flags:tuple)->None:
-        self.cmds  = cmds
-        self.flags = flags
-
-    def parse(self,args:List[str])->Tuple[list,list]:
-        cmds:list = []
-        flags:list = []
-        for arg in args:
-            if arg in self.cmds:
-                cmds.append(arg)
-            elif arg in self.flags:
-                flags.append(arg.split("-")[-1])
-
-        return cmds,flags
 
 class Main():
     def __init__(self,backend,frontend)->None:
@@ -31,7 +15,7 @@ class Main():
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
         #  print(self.handler.today())
-        self.cmd_day("Mo")
+        self.cmd_day()
         exit()
     
     def cmd_list (self)->None:

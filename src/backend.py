@@ -1,6 +1,23 @@
 import json
-from typing import Tuple,Dict
+from typing import Tuple,Dict,List
 import datetime
+
+class Args():
+    def __init__(self,cmds:tuple,flags:tuple)->None:
+        self.cmds  = cmds
+        self.flags = flags
+
+    def parse(self,args:List[str])->Tuple[list,list]:
+        cmds:list = []
+        flags:list = []
+        for arg in args:
+            if arg in self.cmds:
+                cmds.append(arg)
+            elif arg in self.flags:
+                flags.append(arg.split("-")[-1])
+
+        return cmds,flags
+
 
 class Loader():
     def __init__(self,path:str)->None:

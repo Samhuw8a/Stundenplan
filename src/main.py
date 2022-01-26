@@ -4,28 +4,28 @@ from typing import Tuple,List
 import sys
 
 class Args():
-    def __init__(self,subs:tuple,flags:tuple)->None:
-        self.subs  = subs
+    def __init__(self,cmds:tuple,flags:tuple)->None:
+        self.cmds  = cmds
         self.flags = flags
 
     def parse(self,args:List[str])->Tuple[list,list]:
-        subs:list = []
+        cmds:list = []
         flags:list = []
         for arg in args:
-            if arg in self.flags:
-                flags.append(arg)
+            if arg in self.cmds:
+                cmds.append(arg)
+            elif arg in self.flags:
+                flags.append(arg.split("-")[-1])
 
-            elif arg in self.subs:
-                subs.append(arg.split("-")[-1])
-        return subs,flags
+        return cmds,flags
 
 class Main():
     def __init__(self,backend,frontend)->None:
-        subs  = ("list", )
-        flags = ("-h"  , )
+        cmds:tuple   = ("list", "day", "now")
+        flags:tuple  = ("-h", "--help", "-d")
         self.handler = backend
         self.ui      = frontend
-        self.args    = Args(subs,flags)
+        self.args    = Args(cmds,flags)
 
     def run(self)->None:
         print("Running")

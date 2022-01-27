@@ -18,7 +18,6 @@ class Args():
 
         return cmds,flags
 
-
 class Loader():
     def __init__(self,path:str)->None:
         self.path = path

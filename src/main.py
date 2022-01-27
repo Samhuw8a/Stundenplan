@@ -14,12 +14,13 @@ class Main():
 
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
-        #  print(self.handler.today())
+        print(self.handler.today())
         self.cmd_day()
         exit()
     
     def cmd_list (self)->None:
-        pass
+        info = self.backend.Stundenplan
+        self.ui.week(info)
 
     def cmd_day  (self,d:str="")->None:
         if d not in self.weekdays:
@@ -28,7 +29,9 @@ class Main():
         self.ui.day(info)
 
     def cmd_now  (self)->None:
-        pass
+        d = handler.today()
+        info = self.handler.lookup_by_Wday(d)
+        #TODO: zeit finden   
 
 def main()->None:
     handler = Handler()

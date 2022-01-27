@@ -5,6 +5,12 @@
             "Fach": "IN",
             "Anzahl_Lek": 1,
             "Ende": "8:45"
+        },
+        "8:50": {
+            "Zimmer": "154",
+            "Fach": "Da",
+            "Anzahl_Lek": "1",
+            "Ende": "9:35"
         }
     },
     "Di": {},

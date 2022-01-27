@@ -1,13 +1,15 @@
 from backend import Handler,Args
 from frontend import UI
+from editor import Editor
 from typing import Tuple,List
 import sys
 
 class Main():
-    def __init__(self,backend,frontend)->None:
-        cmds:tuple   = ("list", "day", "now")
+    def __init__(self,backend,frontend,editor)->None:
+        cmds:tuple   = ("list", "day", "now", "add")
         flags:tuple  = ("-h", "--help", "-d")
         self.handler = backend
+        self.editor = editor
         self.ui      = frontend
         self.args    = Args(cmds,flags)
         self.weekdays=("Mo","Di","Mi","Do","Fr","Sa","So")
@@ -17,7 +19,14 @@ class Main():
         print(self.handler.today())
         #  self.cmd_now()
         self.cmd_day("Mo")
+        #  self.cmd_add()
         exit()
+
+    def cmd_add(self)->None:
+        p= self.handler.Stundenplan
+        day,time,lek = self.editor.create_lecon()
+        p[day][time]=lek
+        self.handler.loader.set_plan(p)
     
     def cmd_list (self)->None:
         #TODO: Wochenansicht im Frontend
@@ -47,7 +56,8 @@ class Main():
 def main()->None:
     handler = Handler()
     frontend = UI()
-    sp=Main(handler,frontend)
+    editor = Editor("Stunden.json")
+    sp=Main(handler,frontend,editor)
     sp.run()
 
 if __name__=='__main__':

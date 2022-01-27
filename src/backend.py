@@ -53,6 +53,15 @@ class Handler():
     def today(self)->str:
         return self.lookup[str(datetime.date.today().weekday())]
 
+    def get_time(self)->str:
+        return datetime.datetime.now().strftime("%H:%M")
+    
+    def is_in_lecon(self,cur:str,targer_start:str,targer_end:str)->bool:
+        c = int(cur.split(":")[0] + cur.split(":")[1])
+        s = int(targer_start.split(":")[0] + targer_start.split(":")[1])
+        e = int(targer_end.split(":")[0] + targer_end.split(":")[1])
+        return c >=s and c <=e
+
     @property
     def Stundenplan(self)->dict:
         return self.loader.get_plan()
@@ -79,6 +88,7 @@ def main()->None:
     r = h.Stundenplan
     r["Mo"] = h.sort(r["Mo"])
     h.loader.set_plan(r)
+    print(h.is_in_lecon("8:50","8:00","8:45"))
 
 if __name__=='__main__':
     main()

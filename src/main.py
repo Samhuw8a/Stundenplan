@@ -15,11 +15,13 @@ class Main():
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
         print(self.handler.today())
-        self.cmd_day()
+        #  self.cmd_now()
+        self.cmd_day("Mo")
         exit()
     
     def cmd_list (self)->None:
-        info = self.backend.Stundenplan
+        #TODO: Wochenansicht im Frontend
+        info = self.handler.Stundenplan
         self.ui.week(info)
 
     def cmd_day  (self,d:str="")->None:
@@ -28,11 +30,20 @@ class Main():
         info = self.handler.lookup_by_Wday(d)
         self.ui.day(info)
 
-    def cmd_now  (self)->None:
-        d = handler.today()
+    def cmd_now (self)->None:
+        d = self.handler.today()
         info = self.handler.lookup_by_Wday(d)
-        #TODO: zeit finden   
-
+        #TODO: zeit finden
+        c = self.handler.get_time()
+        z=c
+        for t in info:
+            e = info[t]["Ende"]
+            if self.handler.is_in_lecon(c,t,e):
+                z = t
+        #  z="8:00"
+        info = info[z] if z in info else {}
+        self.ui.lecon(info,c,z)
+        
 def main()->None:
     handler = Handler()
     frontend = UI()

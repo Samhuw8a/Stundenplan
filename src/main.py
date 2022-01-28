@@ -56,7 +56,7 @@ class Main():
 def main()->None:
     handler = Handler()
     frontend = UI()
-    editor = Editor("Stunden.json")
+    editor = Editor()
     sp=Main(handler,frontend,editor)
     sp.run()
 

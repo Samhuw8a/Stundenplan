@@ -1,10 +1,8 @@
 import json
-from backend import Loader
 
 class Editor():
 
-    def __init__ (self,path:str)->None:
-        self.loader = Loader(path)
+    def __init__ (self)->None:
         self.weekdays=("Mo","Di","Mi","Do","Fr","Sa","So")
 
     def format_day(self,inp)->str:
@@ -37,7 +35,7 @@ class Editor():
         }
 
 def main()->None:
-    e = Editor("Stunden.json")
+    e = Editor()
 
 if __name__=='__main__':
     main()

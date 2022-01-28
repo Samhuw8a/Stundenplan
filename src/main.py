@@ -42,7 +42,6 @@ class Main():
     def cmd_now (self)->None:
         d = self.handler.today()
         info = self.handler.lookup_by_Wday(d)
-        #TODO: zeit finden
         c = self.handler.get_time()
         z=c
         for t in info:

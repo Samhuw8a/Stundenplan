@@ -1,56 +1,75 @@
 import json
+from PyInquirer import prompt
 
 class Editor():
-
     def __init__ (self)->None:
         self.weekdays=("Mo","Di","Mi","Do","Fr","Sa","So")
-
-    def format_day(self,inp)->str:
-        for wday in self.weekdays:
-            if inp.lower() == wday.lower():
-                return wday
-        print("Day not correct defaulting to 'Mo'")
-        return "Mo"
-
+        self.del_qs=[
+            {
+                'type'    : 'list',
+                'name'    : 'tag',
+                'message' : 'Welcher Wochentag willst du wählen',
+                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+            }, {
+                'type'     : 'input',
+                'name'     : 'start',
+                'message'  : 'Startzeit deiner Lektion',
+                'validate' : lambda x                    : " : " in x
+            }]
+        self.create_qs=[
+            {
+                'type'    : 'list',
+                'name'    : 'tag',
+                'message' : 'Welcher Wochentag willst du wählen',
+                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+            }, {
+                'type': 'input',
+                'name': 'zimmer',
+                'message':'Zimmer'
+            }, {
+                'type': 'input',
+                'name': 'fach',
+                'message':'Fach'
+            }, {
+                'type': 'input',
+                'name': 'lek',
+                'message':'Anzahl Lektionen'
+            }, {
+                'type': 'input',
+                'name': 'start',
+                'message':'Start der Lektion'
+            }, {
+                'type': 'input',
+                'name': 'ende',
+                'message':'Ende der Lektion'
+            },
+        ]
     def delete_lecons(self,plan:dict)->dict:
-        while True:
-            try:
-                inp = input("Tag: ")
-                if len(inp)!=2:
-                    raise ValueError
-                day = self.format_day(inp)
-                break
-            except ValueError:
-                print("Bitte gib den Wochentag in der abgekürzten Form ein")
-        start = input("Startzeit deiner Lektion: ")
+        ans=prompt(self.del_qs)
+        day = ans['tag']
+        start = ans['start']
         del plan[day][start]
         return plan
 
     def create_lecon(self)->tuple:
-        while True:
-            try:
-                inp = input("Tag: ")
-                if len(inp)!=2:
-                    raise ValueError
-                day = self.format_day(inp)
-                break
-            except ValueError:
-                print("Bitte gib den Wochentag in der abgekürzten Form ein")
-
-        zimmer = input("Zimmer: ")
-        fach = input("Fach: ")
-        anzahl_lek = input("Anzahl_lek: ")
-        start = input("Start: ")
-        ende = input("Ende: ")
+        ans        = prompt(self.create_qs)
+        day        = ans['tag']
+        zimmer     = ans['zimmer']
+        fach       = ans['fach']
+        anzahl_lek = ans['lek']
+        start      = ans['start']
+        ende       = ans['ende']
         return day,start,{
-            "Zimmer": zimmer,
-            "Fach": fach,
-            "Anzahl_Lek": anzahl_lek,
-            "Ende": ende
+            "Zimmer"     : zimmer,
+            "Fach"       : fach,
+            "Anzahl_Lek" : anzahl_lek,
+            "Ende"       : ende
         }
 
 def main()->None:
     e = Editor()
+    #  e.delete_lecons({})
+    e.create_lecon()
 
 if __name__=='__main__':
     main()

@@ -8,7 +8,7 @@ class Args():
         self.flags = flags
 
     def parse(self,args:List[str])->Tuple[list,dict]:
-        cmds:list = []
+        cmds:list  = []
         flags:dict = {}
         i=0
         while i <len(args):

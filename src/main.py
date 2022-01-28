@@ -32,7 +32,6 @@ class Main():
         self.handler.loader.set_plan(p)
     
     def cmd_list (self)->None:
-        #TODO: Wochenansicht im Frontend
         info = self.handler.Stundenplan
         self.ui.week(info)
 

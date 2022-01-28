@@ -65,7 +65,6 @@ class Main():
             e = info[t]["Ende"]
             if self.handler.is_in_lecon(c,t,e):
                 z = t
-        #  z="8:00"
         info = info[z] if z in info else {}
         self.ui.lecon(info,c,z)
         

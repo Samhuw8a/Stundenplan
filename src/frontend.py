@@ -10,7 +10,6 @@ class UI():
             print("-"*25)
     
     def week(self,info:dict)->None:
-        #  print(info)
         for day,leks in info.items():
             out = f"{day}: | "
             for t,inf in leks.items():

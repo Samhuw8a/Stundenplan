@@ -12,7 +12,14 @@ class UI():
             print("-"*25)
     
     def week(self,info:dict)->None:
-        print(info)
+        #  print(info)
+        for day,leks in info.items():
+            out = f"{day}: | "
+            for t,inf in leks.items():
+                out += f"{t}: {inf['Fach']} | "
+            print(out)
+            print("-"*45)
+
 
     def lecon(self,info:dict,current_time:str,start:str)->None:
         if info:
@@ -27,6 +34,7 @@ class UI():
 
 def main()->None:
     u = UI()
+    u.week({})
 
 if __name__=='__main__':
     main()

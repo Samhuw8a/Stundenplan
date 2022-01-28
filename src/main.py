@@ -6,26 +6,29 @@ import sys
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        cmds:tuple   = ("list", "day", "now", "add")
-        flags:tuple  = ("-h", "--help", "-d")
-        self.handler = backend
-        self.editor = editor
-        self.ui      = frontend
-        self.args    = Args(cmds,flags)
-        self.weekdays=("Mo","Di","Mi","Do","Fr","Sa","So")
+        cmds:tuple    = ("list", "day", "now", "add")
+        flags:tuple   = ("-h", "--help", "-d")
+        self.handler  = backend
+        self.editor   = editor
+        self.ui       = frontend
+        self.args     = Args(cmds,flags)
+        self.weekdays = ("Mo","Di","Mi","Do","Fr","Sa","So")
 
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
-        print(self.handler.today())
+        #  print(self.handler.today())
         #  self.cmd_now()
-        self.cmd_day("Mo")
+        #  self.cmd_day("Mo")
         #  self.cmd_add()
+        self.cmd_list()
         exit()
 
     def cmd_add(self)->None:
         p= self.handler.Stundenplan
-        day,time,lek = self.editor.create_lecon()
-        p[day][time]=lek
+        while True:
+            day,time,lek = self.editor.create_lecon()
+            p[day][time]=lek
+            if input("Nochmal Y/n").lower() == "n": break
         self.handler.loader.set_plan(p)
     
     def cmd_list (self)->None:

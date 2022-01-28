@@ -7,8 +7,9 @@ class Editor():
 
     def format_day(self,inp)->str:
         for wday in self.weekdays:
-            if inp.lower == wday.lower():
+            if inp.lower() == wday.lower():
                 return wday
+        print("Day not correct defaulting to 'Mo'")
         return "Mo"
 
     def create_lecon(self)->tuple:

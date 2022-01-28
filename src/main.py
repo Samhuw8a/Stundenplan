@@ -16,12 +16,19 @@ class Main():
 
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
-        #  print(self.handler.today())
-        #  self.cmd_now()
-        #  self.cmd_day("Mo")
-        #  self.cmd_add()
-        self.cmd_list()
-        exit()
+        for cmd in s:
+            if cmd == "list":
+                self.cmd_list()
+                exit()
+            elif cmd == "day":
+                self.cmd_day( "" if "d" not in f else f["d"])
+                exit()
+            elif cmd == "now":
+                self.cmd_now()
+                exit()
+            elif cmd == "add":
+                self.cmd_add()
+                exit()
 
     def cmd_add(self)->None:
         p= self.handler.Stundenplan

@@ -7,14 +7,21 @@ class Args():
         self.cmds  = cmds
         self.flags = flags
 
-    def parse(self,args:List[str])->Tuple[list,list]:
+    def parse(self,args:List[str])->Tuple[list,dict]:
         cmds:list = []
-        flags:list = []
-        for arg in args:
+        flags:dict = {}
+        i=0
+        while i <len(args):
+            arg = args[i]
             if arg in self.cmds:
                 cmds.append(arg)
             elif arg in self.flags:
-                flags.append(arg.split("-")[-1])
+                if i==len(args)-1:
+                    print("-d needs a Day")
+                else:
+                    flags[arg.split("-")[-1]] = args[i+1]
+                    i+=1
+            i+=1
 
         return cmds,flags
 

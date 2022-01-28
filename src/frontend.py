@@ -1,6 +1,4 @@
 class UI():
-    def __init__(self)->None:
-        print("Init UI")
 
     def day(self,lektionen:dict)->None:
         for t,lek in lektionen.items():

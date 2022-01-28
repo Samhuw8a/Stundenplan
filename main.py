@@ -1,12 +1,13 @@
-from backend import Handler,Args
-from frontend import UI
-from editor import Editor
+#! /usr/local/bin/python3
+from src.backend import Handler,Args
+from src.frontend import UI
+from src.editor import Editor
 from typing import Tuple,List
 import sys
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        cmds:tuple    = ("list", "day", "now", "add")
+        cmds:tuple    = ("list", "day", "now", "add", "del")
         flags:tuple   = ("-h", "--help", "-d")
         self.handler  = backend
         self.editor   = editor
@@ -17,18 +18,25 @@ class Main():
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
         for cmd in s:
-            if cmd == "list":
+            if   cmd == "list":
                 self.cmd_list()
-                exit()
             elif cmd == "day":
                 self.cmd_day( "" if "d" not in f else f["d"])
-                exit()
             elif cmd == "now":
                 self.cmd_now()
-                exit()
             elif cmd == "add":
                 self.cmd_add()
-                exit()
+            elif cmd == "del":
+                self.cmd_del()
+            exit()
+
+    def cmd_del(self)->None:
+        p= self.handler.Stundenplan
+        while True:
+            self.cmd_list()
+            p = self.editor.delete_lecons(p)
+            if input("Nochmal Y/n").lower() == "n": break
+        self.handler.loader.set_plan(p)
 
     def cmd_add(self)->None:
         p= self.handler.Stundenplan

@@ -17,10 +17,9 @@ class Args():
                 cmds.append(arg)
             elif arg in self.flags:
                 if i==len(args)-1:
-                    print("-d needs a Day")
+                    print("No Entry")
                 else:
                     flags[arg.split("-")[-1]] = args[i+1]
-                    i+=1
             i+=1
 
         return cmds,flags
@@ -39,7 +38,7 @@ class Loader():
 
 class Handler():
     def __init__(self)->None:
-        self.loader = Loader("Stunden.json")
+        self.loader = Loader("src/Stunden.json")
         self.lookup = {
             "0":"Mo",
             "1":"Di",

@@ -2,18 +2,17 @@
 from src.backend import Handler,Args
 from src.frontend import UI
 from src.editor import Editor
-from typing import Tuple,List
 import sys
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        cmds:tuple    = ("list", "day", "now", "add", "del")
-        flags:tuple   = ("-h", "--help", "-d")
-        self.handler  = backend
-        self.editor   = editor
-        self.ui       = frontend
-        self.args     = Args(cmds,flags)
-        self.weekdays = ("Mo","Di","Mi","Do","Fr","Sa","So")
+        cmds:tuple          = ("list", "day", "now", "add", "del")
+        flags:tuple         = ("-h", "--help", "-d")
+        self.weekdays:tuple = ("Mo","Di","Mi","Do","Fr","Sa","So")
+        self.handler        = backend
+        self.editor         = editor
+        self.ui             = frontend
+        self.args           = Args(cmds,flags)
 
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])

@@ -59,5 +59,5 @@ class UI():
 def main()->None:
     u = UI()
 
-if __name__=='__main__'
+if __name__=='__main__':
     main()

@@ -2,7 +2,6 @@
 from src.backend import Handler,Args
 from src.frontend import UI
 from src.editor import Editor
-from typing import Tuple,List
 import sys
 
 PATH = "/Users/Samuel/Programieren/Stundenplan/src/Stunden.json"
@@ -31,6 +30,7 @@ class Main():
         del:
             Delete an entry
         """
+
 
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])

@@ -4,7 +4,7 @@ from src.frontend import UI
 from src.editor import Editor
 import sys
 
-PATH = "/Users/Samuel/Programieren/Stundenplan/src/Stunden.json"
+PATH = "src/Stunden.json"
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:

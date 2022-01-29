@@ -68,7 +68,6 @@ class Editor():
 def main()->None:
     e = Editor()
     e.delete_lecons({})
-    #  e.create_lecon()
 
 if __name__=='__main__':
     main()

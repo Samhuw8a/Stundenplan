@@ -5,6 +5,8 @@ from src.editor import Editor
 from typing import Tuple,List
 import sys
 
+PATH = "/Users/Samuel/Programieren/Stundenplan/src/Stunden.json"
+
 class Main():
     def __init__(self,backend,frontend,editor)->None:
         cmds:tuple    = ("list", "day", "now", "add", "del")
@@ -87,7 +89,7 @@ class Main():
         self.ui.lecon(info,c,z)
         
 def main()->None:
-    handler = Handler("src/Stunden.json")
+    handler = Handler(PATH)
     frontend = UI()
     editor = Editor()
     sp=Main(handler,frontend,editor)

@@ -8,6 +8,4 @@ Der Install script installiert die Applikation unter splan in /usr/local/bin/
 - pythonInquirer : https://github.com/CITGuru/PyInquirer
 
 # TODO
-- Wochen ansicht
-- Args passing /main loop
-- Edit tools
+

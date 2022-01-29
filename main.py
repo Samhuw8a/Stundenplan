@@ -70,7 +70,7 @@ class Main():
         info = self.handler.Stundenplan
         self.ui.week(info)
 
-    def cmd_day  (self,d:str="")->None:
+    def cmd_day (self,d:str="")->None:
         if d not in self.weekdays:
             d = self.handler.today()
         info = self.handler.lookup_by_Wday(d)

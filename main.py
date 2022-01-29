@@ -14,9 +14,27 @@ class Main():
         self.ui       = frontend
         self.args     = Args(cmds,flags)
         self.weekdays = ("Mo","Di","Mi","Do","Fr","Sa","So")
+        self.usage    = """Usage:
+        main [list,day,now,add,del] [-d, -h, --help]
+
+        list:
+            List all items in your Plan
+        day [-d]:
+            list all lecons in the currrent day.
+            if -d is set it will list all items at that day
+        now:
+            Show your current lecon
+        add:
+            Add an entry
+        del:
+            Delete an entry
+        """
 
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
+        if 'h' in f or 'help' in f:
+            print(self.usage)
+            exit()
         for cmd in s:
             if   cmd == "list":
                 self.cmd_list()
@@ -69,7 +87,7 @@ class Main():
         self.ui.lecon(info,c,z)
         
 def main()->None:
-    handler = Handler()
+    handler = Handler("src/Stunden.json")
     frontend = UI()
     editor = Editor()
     sp=Main(handler,frontend,editor)

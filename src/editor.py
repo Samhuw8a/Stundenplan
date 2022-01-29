@@ -14,7 +14,6 @@ class Editor():
                 'type'     : 'input',
                 'name'     : 'start',
                 'message'  : 'Startzeit deiner Lektion',
-                'validate' : lambda x                    : " : " in x
             }]
         self.create_qs=[
             {
@@ -45,8 +44,8 @@ class Editor():
             },
         ]
     def delete_lecons(self,plan:dict)->dict:
-        ans=prompt(self.del_qs)
-        day = ans['tag']
+        ans   = prompt(self.del_qs)
+        day   = ans['tag']
         start = ans['start']
         del plan[day][start]
         return plan
@@ -68,8 +67,8 @@ class Editor():
 
 def main()->None:
     e = Editor()
-    #  e.delete_lecons({})
-    e.create_lecon()
+    e.delete_lecons({})
+    #  e.create_lecon()
 
 if __name__=='__main__':
     main()

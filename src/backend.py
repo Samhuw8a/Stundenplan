@@ -17,9 +17,10 @@ class Args():
                 cmds.append(arg)
             elif arg in self.flags:
                 if i==len(args)-1:
-                    print("No Entry")
+                    sub = ""
                 else:
-                    flags[arg.split("-")[-1]] = args[i+1]
+                    sub = args[i+1]
+                flags[arg.split("-")[-1]] = sub
             i+=1
 
         return cmds,flags
@@ -37,8 +38,8 @@ class Loader():
             json.dump(plan,f,indent=4)
 
 class Handler():
-    def __init__(self)->None:
-        self.loader = Loader("src/Stunden.json")
+    def __init__(self,path:str)->None:
+        self.loader = Loader(path)
         self.lookup = {
             "0":"Mo",
             "1":"Di",
@@ -90,7 +91,7 @@ class Handler():
         return new
 
 def main()->None:
-    h = Handler()
+    h = Handler("src/Stunden.json")
     r = h.Stundenplan
     r["Mo"] = h.sort(r["Mo"])
     h.loader.set_plan(r)

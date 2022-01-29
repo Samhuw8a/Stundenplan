@@ -4,18 +4,39 @@ from src.frontend import UI
 from src.editor import Editor
 import sys
 
+PATH = "/Users/Samuel/Programieren/Stundenplan/src/Stunden.json"
+
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        cmds:tuple          = ("list", "day", "now", "add", "del")
-        flags:tuple         = ("-h", "--help", "-d")
-        self.weekdays:tuple = ("Mo","Di","Mi","Do","Fr","Sa","So")
-        self.handler        = backend
-        self.editor         = editor
-        self.ui             = frontend
-        self.args           = Args(cmds,flags)
+        cmds:tuple    = ("list", "day", "now", "add", "del")
+        flags:tuple   = ("-h", "--help", "-d")
+        self.handler  = backend
+        self.editor   = editor
+        self.ui       = frontend
+        self.args     = Args(cmds,flags)
+        self.weekdays = ("Mo","Di","Mi","Do","Fr","Sa","So")
+        self.usage    = """Usage:
+        main [list,day,now,add,del] [-d, -h, --help]
+
+        list:
+            List all items in your Plan
+        day [-d]:
+            list all lecons in the currrent day.
+            if -d is set it will list all items at that day
+        now:
+            Show your current lecon
+        add:
+            Add an entry
+        del:
+            Delete an entry
+        """
+
 
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
+        if 'h' in f or 'help' in f:
+            print(self.usage)
+            exit()
         for cmd in s:
             if   cmd == "list":
                 self.cmd_list()
@@ -68,7 +89,7 @@ class Main():
         self.ui.lecon(info,c,z)
         
 def main()->None:
-    handler = Handler()
+    handler = Handler(PATH)
     frontend = UI()
     editor = Editor()
     sp=Main(handler,frontend,editor)

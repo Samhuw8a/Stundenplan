@@ -1,5 +1,5 @@
 import json
-from PyInquirer import prompt
+from PyInquirer import prompt,style_from_dict
 
 class Editor():
     def __init__ (self)->None:
@@ -14,6 +14,7 @@ class Editor():
                 'type'    : 'input',
                 'name'    : 'start',
                 'message' : 'Startzeit deiner Lektion',
+                'validate': self.is_valid_time
             }]
         self.create_qs=[
             {
@@ -32,23 +33,37 @@ class Editor():
             }, {
                 'type'    : 'input',
                 'name'    : 'lek',
-                'message' : 'Anzahl Lektionen'
+                'message' : 'Anzahl Lektionen',
+                'validate': lambda x: str(x).isdigit()
             }, {
                 'type'    : 'input',
                 'name'    : 'start',
-                'message' : 'Start der Lektion'
-                }, {
+                'message' : 'Start der Lektion',
+                'validate': self.is_valid_time
+            }, {
                 'type'    : 'input',
                 'name'    : 'ende',
-                'message' : 'Ende der Lektion'
+                'message' : 'Ende der Lektion',
+                'validate': self.is_valid_time
             },
         ]
+
     def delete_lecons(self,plan:dict)->dict:
         ans   = prompt(self.del_qs)
         day   = ans['tag']
         start = ans['start']
         del plan[day][start]
         return plan
+
+    def is_valid_time(self, time:str)->bool:
+        try:
+            int(time.split(":")[0])
+            int(time.split(":")[1])
+            return True
+        except:
+            pass
+
+        return False
 
     def create_lecon(self)->tuple:
         ans        = prompt(self.create_qs)
@@ -67,7 +82,7 @@ class Editor():
 
 def main()->None:
     e = Editor()
-    e.delete_lecons({})
+    e.create_lecon()
 
 if __name__=='__main__':
     main()

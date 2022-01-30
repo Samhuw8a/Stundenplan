@@ -13,7 +13,7 @@ class UI():
             "error"  : "red bold "
         }
         self.styling = Theme(self.style)
-        self.cons = Console(theme=self.styling)
+        self.cons    = Console(theme= self.styling)
 
     def day(self,lektionen:dict)->None:
         for t,lek in lektionen.items():
@@ -36,13 +36,13 @@ class UI():
 
         for MO,DI,MI,DO,FR,SA,SO in zip_longest(*d_week.values()):
             week.add_row(
-                 f"[fach]{MO[0] if MO != None else ''} {MO[1] if MO != None else ''}",
-                 f"[fach]{DI[0] if DI != None else ''} {DI[1] if DI != None else ''}",
-                 f"[fach]{MI[0] if MI != None else ''} {MI[1] if MI != None else ''}",
-                 f"[fach]{DO[0] if DO != None else ''} {DO[1] if DO != None else ''}",
-                 f"[fach]{FR[0] if FR != None else ''} {FR[1] if FR != None else ''}",
-                 f"[fach]{SA[0] if SA != None else ''} {SA[1] if SA != None else ''}",
-                 f"[fach]{SO[0] if SO != None else ''} {SO[1] if SO != None else ''}"
+                 f"[fach]{MO[0] if MO != None else '[red]KA'} {MO[1] if MO != None else ''}",
+                 f"[fach]{DI[0] if DI != None else '[red]KA'} {DI[1] if DI != None else ''}",
+                 f"[fach]{MI[0] if MI != None else '[red]KA'} {MI[1] if MI != None else ''}",
+                 f"[fach]{DO[0] if DO != None else '[red]KA'} {DO[1] if DO != None else ''}",
+                 f"[fach]{FR[0] if FR != None else '[red]KA'} {FR[1] if FR != None else ''}",
+                 f"[fach]{SA[0] if SA != None else '[red]KA'} {SA[1] if SA != None else ''}",
+                 f"[fach]{SO[0] if SO != None else '[red]KA'} {SO[1] if SO != None else ''}"
             )
         self.cons.print(week)
 

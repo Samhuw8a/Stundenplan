@@ -10,10 +10,10 @@ class Editor():
                 'name'    : 'tag',
                 'message' : 'Welcher Wochentag willst du wählen',
                 'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
-            }, {
-                'type'     : 'input',
-                'name'     : 'start',
-                'message'  : 'Startzeit deiner Lektion',
+                }, {
+                'type'    : 'input',
+                'name'    : 'start',
+                'message' : 'Startzeit deiner Lektion',
             }]
         self.create_qs=[
             {
@@ -22,25 +22,25 @@ class Editor():
                 'message' : 'Welcher Wochentag willst du wählen',
                 'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
             }, {
-                'type': 'input',
-                'name': 'zimmer',
-                'message':'Zimmer'
+                'type'    : 'input',
+                'name'    : 'zimmer',
+                'message' : 'Zimmer'
             }, {
-                'type': 'input',
-                'name': 'fach',
-                'message':'Fach'
+                'type'    : 'input',
+                'name'    : 'fach',
+                'message' : 'Fach'
             }, {
-                'type': 'input',
-                'name': 'lek',
-                'message':'Anzahl Lektionen'
+                'type'    : 'input',
+                'name'    : 'lek',
+                'message' : 'Anzahl Lektionen'
             }, {
-                'type': 'input',
-                'name': 'start',
-                'message':'Start der Lektion'
-            }, {
-                'type': 'input',
-                'name': 'ende',
-                'message':'Ende der Lektion'
+                'type'    : 'input',
+                'name'    : 'start',
+                'message' : 'Start der Lektion'
+                }, {
+                'type'    : 'input',
+                'name'    : 'ende',
+                'message' : 'Ende der Lektion'
             },
         ]
     def delete_lecons(self,plan:dict)->dict:

@@ -31,7 +31,6 @@ class Main():
             Delete an entry
         """
 
-
     def run(self)->None:
         s,f = self.args.parse(sys.argv[1:])
         if 'h' in f or 'help' in f:

@@ -4,6 +4,7 @@ from src.frontend import UI
 from src.editor import Editor
 import sys
 
+# Test
 PATH = "src/Stunden.json"
 
 class Main():

@@ -65,7 +65,7 @@ class Handler():
 
     def format_week_string(self,d:str)->str:
         l={ "mo":"Mo", "di":"Di", "do":"Mi", "mi":"Do", "fr":"Fr", "sa":"Sa", "so":"So" }
-        return l[d.lower()] if d.lower() in l else "Mo"
+        return l[d.lower()] if d.lower() in l else self.today()
     
     def is_in_lecon(self,cur:str,targer_start:str,targer_end:str)->bool:
         c = int(cur.split(":")[0]          + cur.split(":")[1])

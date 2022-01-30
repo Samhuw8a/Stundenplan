@@ -6,16 +6,18 @@ from itertools import zip_longest
 class UI():
     def __init__(self)->None:
         self.style= {
-            "zeit"   : "#fadc84  bold underline",
-            "fach"   : "#84b2fa  italic",
-            "zimmer" : "#d984fa  ",
-            "text"   : "#7dd198  ",
-            "error"  : "red bold "
+            "zeit"     : "#fadc84 bold underline",
+            "fach"     : "#84b2fa italic",
+            "zimmer"   : "#d984fa ",
+            "text"     : "#7dd198 ",
+            "boldtext" : "#7dd198 bold ",
+            "error"    : "red bold "
         }
         self.styling = Theme(self.style)
         self.cons    = Console(theme= self.styling)
 
-    def day(self,lektionen:dict)->None:
+    def day(self,lektionen:dict,day:str)->None:
+        self.cons.print(" "*8 +day,style="boldtext")
         for t,lek in lektionen.items():
             self.lecon(lek,t)
 

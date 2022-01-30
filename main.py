@@ -35,6 +35,8 @@ class Main():
         s,f = self.args.parse(sys.argv[1:])
         if 'h' in f or 'help' in f:
             self.ui.usage(self.usage_str)
+        elif not s:
+            self.cmd_ui()
         else:
             for cmd in s:
                 if   cmd == "list":
@@ -48,6 +50,19 @@ class Main():
                 elif cmd == "del":
                     self.cmd_del()
         exit()
+
+    def cmd_ui(self)->None:
+        cmd,d = self.ui.tui()
+        if cmd   == "list":
+            self.cmd_list()
+        elif cmd == "day":
+            self.cmd_day(d)
+        elif cmd == "now":
+            self.cmd_now()
+        elif cmd == "add":
+            self.cmd_add()
+        elif cmd == "del":
+            self.cmd_del()
 
     def cmd_del(self)->None:
         p = self.handler.Stundenplan
@@ -84,7 +99,7 @@ class Main():
             if self.handler.is_in_lecon(c,t,e):
                 z = t
         info = info[z] if z in info else {}
-        self.ui.lecon(info,c,z)
+        self.ui.lecon(info,c)
         
 def main()->None:
     handler = Handler(PATH)

@@ -2,6 +2,7 @@ from rich.console import Console
 from rich.theme import Theme
 from rich.table import Table
 from itertools import zip_longest
+from PyInquirer import prompt, Separator,style_from_dict,Token,style_from_dict,Token
 
 class UI():
     def __init__(self)->None:
@@ -17,8 +18,45 @@ class UI():
         self.styling = Theme(self.style)
         self.cons    = Console(theme= self.styling)
 
+        self.qstyle = style_from_dict({
+            Token.Separator    : 'bg: #cc5454',
+            Token.QuestionMark : '#673ab7',
+            Token.Selected     : '#cc4454',  # default
+            Token.Pointer      : '#673ab7 bold',
+            Token.Instruction  : '',  # default
+            Token.Answer       : '#f44336 bold',
+            Token.Question     : 'underline bold',
+            Token.Separator    : '#fadc84'
+        })
+        self.ui_qs=[
+            {
+                'type'    : 'list',
+                'name'    : 'cmd',
+                'message' : 'Was willst du machen',
+                'choices' : [ 'list', 'day', 'now', Separator("===>-<==="), 'add', 'del' ]
+            }
+        ]
+        self.day_qs=[
+            {
+                'type'    : 'list' ,
+                'name'    : 'day',
+                'message' : 'welcher Tag willst du',
+                'choices' : [ "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+            }
+        ]
+
+    def tui(self)->tuple:
+        ans = prompt(self.ui_qs,style=self.qstyle)
+        d = ""
+        cmd = ans["cmd"]
+        if cmd== "day":
+            d = prompt(self.day_qs,style=self.qstyle)["day"]
+        print(cmd,d)
+        return cmd,d
+
     def usage(self, usage_str:str)->None:
         self.cons.print(usage_str)
+
     def day(self,lektionen:dict,day:str)->None:
         self.cons.print(" "*8 +day,style="boldtext")
         for t,lek in lektionen.items():

@@ -11,11 +11,14 @@ class UI():
             "zimmer"   : "#d984fa ",
             "text"     : "#7dd198 ",
             "boldtext" : "#7dd198 bold ",
-            "error"    : "red bold "
+            "error"    : "red bold ",
+            "usage"    : "#fadc84 bold"
         }
         self.styling = Theme(self.style)
         self.cons    = Console(theme= self.styling)
 
+    def usage(self, usage_str:str)->None:
+        self.cons.print(usage_str)
     def day(self,lektionen:dict,day:str)->None:
         self.cons.print(" "*8 +day,style="boldtext")
         for t,lek in lektionen.items():

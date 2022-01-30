@@ -9,4 +9,4 @@ Der Install script installiert die Applikation unter splan in /usr/local/bin/
 - rich           : https://github.com/Textualize/rich
 
 # TODO
-
+CUI mir pythonInquirer falls keine args

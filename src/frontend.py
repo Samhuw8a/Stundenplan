@@ -1,5 +1,6 @@
 from rich.console import Console
 from rich.theme   import Theme
+from rich.panel   import Panel
 from rich.table   import Table
 from itertools    import zip_longest
 from PyInquirer   import prompt, Separator,style_from_dict,Token,style_from_dict,Token
@@ -18,7 +19,7 @@ class UI():
         self.styling = Theme(self.style)
         self.cons    = Console(theme= self.styling)
 
-        self.qstyle = style_from_dict({
+        self.qstyle  = style_from_dict({
             Token.Separator    : 'bg: #cc5454',
             Token.QuestionMark : '#673ab7',
             Token.Selected     : '#cc4454',  # default
@@ -88,14 +89,17 @@ class UI():
         self.cons.print(week)
 
     def lecon(self,info:dict,start:str)->None:
+        out = ""
         if info:
-            self.cons.print("-"*20)
-            self.cons.print (f"| [zeit]{start} {info['Ende']}")
-            self.cons.print (f"| [fach]\t{info['Fach']}")
-            self.cons.print (f"| [zimmer]\t{info['Zimmer']}")
-            self.cons.print (f"| [text]\t{info['Anzahl_Lek']} Lektionen")
+            out += f"[fach]{info['Fach']}\n"
+            out += f"[zimmer]{info['Zimmer']}\n"
+            out += f"[text]{info['Anzahl_Lek']} Lektionen\n"
+            out += f"[zeit]{info['Ende']}"
         else:
-            self.cons.print("[error]Du hast im moment Keine Lektion")
+            out ="[error]Du hast im moment Keine Lektion"
+
+        pan = Panel(out,title=f"[zeit]{start}",width=30,padding=1)
+        self.cons.print(pan)
 
 def main()->None:
     u = UI()

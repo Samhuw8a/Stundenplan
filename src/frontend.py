@@ -1,8 +1,8 @@
 from rich.console import Console
-from rich.theme import Theme
-from rich.table import Table
-from itertools import zip_longest
-from PyInquirer import prompt, Separator,style_from_dict,Token,style_from_dict,Token
+from rich.theme   import Theme
+from rich.table   import Table
+from itertools    import zip_longest
+from PyInquirer   import prompt, Separator,style_from_dict,Token,style_from_dict,Token
 
 class UI():
     def __init__(self)->None:
@@ -28,14 +28,12 @@ class UI():
             Token.Question     : 'underline bold',
             Token.Separator    : '#fadc84'
         })
-        self.ui_qs=[
-            {
-                'type'    : 'list',
-                'name'    : 'cmd',
-                'message' : 'Was willst du machen',
-                'choices' : [ 'list', 'day', 'now', Separator("===>-<==="), 'add', 'del' ]
-            }
-        ]
+        self.ui_qs=[ {
+            'type'    : 'list',
+            'name'    : 'cmd',
+            'message' : 'Was willst du machen',
+            'choices' : [ 'list', 'day', 'now', Separator("==>edit<=="), 'add', 'del' ]
+        } ]
         self.day_qs=[
             {
                 'type'    : 'list' ,

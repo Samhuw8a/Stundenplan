@@ -68,9 +68,9 @@ class Handler():
         return l[d.lower()] if d.lower() in l else self.today()
     
     def is_in_lecon(self,cur:str,targer_start:str,targer_end:str)->bool:
-        c = int(cur.split(":")[0]          + cur.split(":")[1])
+        c =          int(cur.split(":")[0]          + cur.split(":")[1])
         s = int(targer_start.split(":")[0] + targer_start.split(":")[1])
-        e = int(targer_end.split(":")[0]   + targer_end.split(":")[1])
+        e =   int(targer_end.split(":")[0]   + targer_end.split(":")[1])
         return c >=s and c <=e
 
     @property
@@ -78,20 +78,19 @@ class Handler():
         return self.loader.get_plan()
 
     def sort(self,day:dict)->dict:
-        lookup:dict = {}
-        sort  :list = []
-        new   :dict = {}
+        lookup: dict = {}
+        new   : dict = {}
+        sort  : list = []
 
         for k in day.keys():
-            t = int(k.replace(":",""))
+            t         = int(k.replace(":",""))
             lookup[t] = {k: day[k]}
             sort.append(t)
-
         sort.sort()
-        for k in sort:
-            time=list(lookup[k].keys())[0]
-            new[time]=lookup[k][time]
 
+        for k in sort:
+            time      = list(lookup[k].keys())[0]
+            new[time] = lookup[k][time]
         return new
 
 def main()->None:

@@ -16,7 +16,7 @@ class Main():
         self.args      = Args(cmds,flags)
         self.weekdays  = ("Mo","Di","Mi","Do","Fr","Sa","So")
         self.usage_str = """[red]Usage:
-       [blue]main [list,day,now,add,del] [-d, -h, --help]
+        [blue]main [list,day,now,add,del] [-d, -h, --help]
 
         [usage]list:
             [text]List all items in your Plan
@@ -32,7 +32,7 @@ class Main():
         """
 
     def run(self)->None:
-        s,f = self.args.parse(sys.argv[1:])
+        s,f = self.args.parse(sys.argv)
         if 'h' in f or 'help' in f:
             self.ui.usage(self.usage_str)
         elif not s:
@@ -69,7 +69,6 @@ class Main():
         while True:
             self.cmd_list()
             p = self.editor.delete_lecons(p)
-
             if input("Nochmal Y/n").lower() == "n": break
         self.handler.loader.set_plan(p)
 
@@ -77,7 +76,7 @@ class Main():
         p= self.handler.Stundenplan
         while True:
             day,time,lek = self.editor.create_lecon()
-            p[day][time]=lek
+            p[day][time] = lek
             if input("Nochmal Y/n").lower() == "n": break
         self.handler.loader.set_plan(p)
     
@@ -85,21 +84,21 @@ class Main():
         self.ui.week(self.handler.Stundenplan)
 
     def cmd_day (self,d:str="")->None:
-        d=self.handler.format_week_string(d)
+        d    = self.handler.format_week_string(d)
         info = self.handler.lookup_by_Wday(d)
         self.ui.day(info,d)
 
     def cmd_now (self)->None:
-        d = self.handler.today()
-        info = self.handler.lookup_by_Wday(d)
-        c = self.handler.get_time()
-        z=c
+        wday         = self.handler.today()
+        info         = self.handler.lookup_by_Wday(wday)
+        current_time = self.handler.get_time()
+        z            = current_time
         for t in info:
             e = info[t]["Ende"]
-            if self.handler.is_in_lecon(c,t,e):
+            if self.handler.is_in_lecon(current_time,t,e):
                 z = t
         info = info[z] if z in info else {}
-        self.ui.lecon(info,c)
+        self.ui.lecon(info,current_time)
         
 def main()->None:
     handler = Handler(PATH)

@@ -29,7 +29,8 @@ class Editor():
             }, {
                 'type'    : 'input',
                 'name'    : 'fach',
-                'message' : 'Fach'
+                'message' : 'Fach',
+                'validate': lambda x: x.isalpha()
             }, {
                 'type'    : 'input',
                 'name'    : 'lek',

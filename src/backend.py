@@ -40,15 +40,7 @@ class Loader():
 class Handler():
     def __init__(self,path:str)->None:
         self.loader = Loader(path)
-        self.lookup = {
-            "0":"Mo",
-            "1":"Di",
-            "2":"Mi",
-            "3":"Do",
-            "4":"Fr",
-            "5":"Sa",
-            "6":"So"
-        }
+        self.lookup = { "0":"Mo", "1":"Di", "2":"Mi", "3":"Do", "4":"Fr", "5":"Sa", "6":"So" }
 
     def Wday_from_date (self,date:Tuple[int,int,int]) -> str:
         y,m,d = date
@@ -71,7 +63,7 @@ class Handler():
         c =          int(cur.split(":")[0]          + cur.split(":")[1])
         s = int(targer_start.split(":")[0] + targer_start.split(":")[1])
         e =   int(targer_end.split(":")[0]   + targer_end.split(":")[1])
-        return c >=s and c <=e
+        return c >= s and c <= e
 
     @property
     def Stundenplan(self)->dict:

@@ -5,10 +5,11 @@ from src.editor import Editor
 import sys
 
 PATH = "src/Stunden.json"
+TEMP = "src/Temps.json"
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        cmds:tuple     = ("list", "day", "now", "add", "del")
+        cmds:tuple     = ("list", "day", "now", "add", "del", "temp")
         flags:tuple    = ("-h", "--help", "-d")
         self.handler   = backend
         self.editor    = editor
@@ -41,6 +42,8 @@ class Main():
             for cmd in s:
                 if   cmd == "list":
                     self.cmd_list()
+                elif cmd == "temp":
+                    self.cmd_temp()
                 elif cmd == "day":
                     self.cmd_day( "" if "d" not in f else f["d"])
                 elif cmd == "now":
@@ -51,6 +54,8 @@ class Main():
                     self.cmd_del()
         exit()
 
+    def cmd_temp(self)->None:
+        pass
     def cmd_ui(self)->None:
         cmd,d = self.ui.tui()
         if cmd   == "list":
@@ -101,7 +106,7 @@ class Main():
         self.ui.lecon(info,current_time)
         
 def main()->None:
-    handler = Handler(PATH)
+    handler = Handler(PATH,TEMP)
     frontend = UI()
     editor = Editor()
     sp=Main(handler,frontend,editor)

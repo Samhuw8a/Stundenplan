@@ -38,9 +38,10 @@ class Loader():
             json.dump(plan,f,indent=4)
 
 class Handler():
-    def __init__(self,path:str)->None:
-        self.loader = Loader(path)
-        self.lookup = { "0":"Mo", "1":"Di", "2":"Mi", "3":"Do", "4":"Fr", "5":"Sa", "6":"So" }
+    def __init__(self,path:str, temps:str)->None:
+        self.loader      = Loader(path)
+        self.temp_loader = Loader(temps)
+        self.lookup      = { "0":"Mo", "1":"Di", "2":"Mi", "3":"Do", "4":"Fr", "5":"Sa", "6":"So" }
 
     def Wday_from_date (self,date:Tuple[int,int,int]) -> str:
         y,m,d = date
@@ -54,6 +55,22 @@ class Handler():
 
     def get_time(self)->str:
         return datetime.datetime.now().strftime("%H:%M")
+    
+    def insert_temps(self,plan:dict)->dict:
+        temp = self.temp_loader.get_plan()
+        for el in temp["verschiebungen"]:
+            o = el["old"]
+            n = el["new"]
+            if el["active"]:
+                plan[n[0]][n[1]] = plan[o[0]][o[1]]
+                del plan[o[0]][o[1]]
+            else:
+                temp["verschiebungen"].remove(el)
+                temp["inactive"].append(el)
+            plan[n[0]] = self.sort(plan[n[0]])
+
+        self.temp_loader.set_plan(temp)
+        return plan
 
     def format_week_string(self,d:str)->str:
         l={ "mo":"Mo", "di":"Di", "do":"Mi", "mi":"Do", "fr":"Fr", "sa":"Sa", "so":"So" }
@@ -67,6 +84,10 @@ class Handler():
 
     @property
     def Stundenplan(self)->dict:
+        return self.insert_temps(self.loader.get_plan())
+
+    @property
+    def Temps(self)->dict:
         return self.loader.get_plan()
 
     def sort(self,day:dict)->dict:
@@ -86,7 +107,7 @@ class Handler():
         return new
 
 def main()->None:
-    h       = Handler("src/Stunden.json")
+    h       = Handler("Stunden.json","Temps.json")
     r       = h.Stundenplan
     r["Mo"] = h.sort(r["Mo"])
     h.loader.set_plan(r)

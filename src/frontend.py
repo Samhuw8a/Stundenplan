@@ -88,9 +88,16 @@ class UI():
             )
         self.cons.print(week)
 
+    def time_left(self, cur,end)->int:
+        h = int(end.split(":")[0]) - int(cur.split(":")[0]) 
+        m = int(end.split(":")[1]) - int(cur.split(":")[1]) 
+        return h*60+m
+
     def lecon(self,info:dict,start:str)->None:
         out = ""
+        t_left=0
         if info:
+            t_left = self.time_left(start,info["Ende"])
             out += f"[fach]{info['Fach']}\n"
             out += f"[zimmer]{info['Zimmer']}\n"
             out += f"[text]{info['Anzahl_Lek']} Lektionen\n"
@@ -98,7 +105,7 @@ class UI():
         else:
             out ="[error]Du hast im moment Keine Lektion"
 
-        pan = Panel(out,title=f"[zeit]{start}",width=30,padding=1)
+        pan = Panel(out,title=f"[zeit]{t_left}/{start}",width=30,padding=1)
         self.cons.print(pan)
 
 def main()->None:

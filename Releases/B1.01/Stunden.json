@@ -1,0 +1,164 @@
+{
+    "Mo": {
+        "8:00": {
+            "Zimmer": "E13",
+            "Fach": "In",
+            "Anzahl_Lek": "1",
+            "Ende": "8:45"
+        },
+        "8:50": {
+            "Zimmer": "116",
+            "Fach": "Re",
+            "Anzahl_Lek": "1",
+            "Ende": "9:35"
+        },
+        "9:50": {
+            "Zimmer": "T2",
+            "Fach": "SH",
+            "Anzahl_Lek": "2",
+            "Ende": "11:25"
+        },
+        "13:10": {
+            "Zimmer": "202/27",
+            "Fach": "Bip/Inp",
+            "Anzahl_Lek": "2",
+            "Ende": "14:45"
+        },
+        "15:00": {
+            "Zimmer": "E020",
+            "Fach": "Mu",
+            "Anzahl_Lek": "2",
+            "Ende": "16:35"
+        }
+    },
+    "Di": {
+        "8:50": {
+            "Zimmer": "113",
+            "Fach": "De",
+            "Anzahl_Lek": "1",
+            "Ende": "9:35"
+        },
+        "9:50": {
+            "Zimmer": "22",
+            "Fach": "Bg",
+            "Anzahl_Lek": "2",
+            "Ende": "11:25"
+        },
+        "13:10": {
+            "Zimmer": "214",
+            "Fach": "Gs",
+            "Anzahl_Lek": "1",
+            "Ende": "13:55"
+        },
+        "14:00": {
+            "Zimmer": "E16",
+            "Fach": "En",
+            "Anzahl_Lek": "1",
+            "Ende": "14:45"
+        },
+        "15:00": {
+            "Zimmer": "E9",
+            "Fach": "Ma",
+            "Anzahl_Lek": "2",
+            "Ende": "16:35"
+        }
+    },
+    "Mi": {
+        "8:00": {
+            "Zimmer": "102",
+            "Fach": "Gg",
+            "Anzahl_Lek": "2",
+            "Ende": "9:35"
+        },
+        "9:50": {
+            "Zimmer": "214",
+            "Fach": "Gs",
+            "Anzahl_Lek": "1",
+            "Ende": "11:25"
+        },
+        "12:20": {
+            "Zimmer": "T2",
+            "Fach": "SH",
+            "Anzahl_Lek": "1",
+            "Ende": "13:05"
+        },
+        "13:10": {
+            "Zimmer": "219",
+            "Fach": "De",
+            "Anzahl_Lek": "2",
+            "Ende": "14:45"
+        }
+    },
+    "Do": {
+        "8:00": {
+            "Zimmer": "E9",
+            "Fach": "Ma",
+            "Anzahl_Lek": "1",
+            "Ende": "8:45"
+        },
+        "8:50": {
+            "Zimmer": "217",
+            "Fach": "De",
+            "Anzahl_Lek": "1",
+            "Ende": "9:35"
+        },
+        "9:50": {
+            "Zimmer": "216",
+            "Fach": "Wr",
+            "Anzahl_Lek": "2",
+            "Ende": "11:25"
+        },
+        "13:10": {
+            "Zimmer": "18",
+            "Fach": "Fr",
+            "Anzahl_Lek": "2",
+            "Ende": "14:45"
+        },
+        "15:00": {
+            "Zimmer": "209",
+            "Fach": "Ch",
+            "Anzahl_Lek": "2",
+            "Ende": "16:35"
+        }
+    },
+    "Fr": {
+        "8:00": {
+            "Zimmer": "E9",
+            "Fach": "Ma",
+            "Anzahl_Lek": "1",
+            "Ende": "8:45"
+        },
+        "8:50": {
+            "Zimmer": "18",
+            "Fach": "Fr",
+            "Anzahl_Lek": "1",
+            "Ende": "9:35"
+        },
+        "9:50": {
+            "Zimmer": "E14",
+            "Fach": "En",
+            "Anzahl_Lek": "2",
+            "Ende": "11:25"
+        },
+        "13:10": {
+            "Zimmer": "116",
+            "Fach": "Re",
+            "Anzahl_Lek": "1",
+            "Ende": "13:55"
+        },
+        "14:00": {
+            "Zimmer": "201",
+            "Fach": "Bi",
+            "Anzahl_Lek": "1",
+            "Ende": "14:45"
+        },
+        "15:00": {
+            "Zimmer": "214",
+            "Fach": "Ks",
+            "Anzahl_Lek": "1",
+            "Ende": "15:45"
+        }
+    },
+    "Sa": {},
+    "So": {}
+}

@@ -1,2 +1,4 @@
 # TODO:
-- textual tui gestallten
+- Temp editor
+- Temp lister
+

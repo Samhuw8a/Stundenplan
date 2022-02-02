@@ -1,0 +1,16 @@
+{
+    "verschiebungen": [],
+    "inactive": [
+        {
+            "old": [
+                "Fr",
+                "8:50"
+            ],
+            "new": [
+                "Mi",
+                "10:40"
+            ],
+            "active": false
+        }
+    ]
+}

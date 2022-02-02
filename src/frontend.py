@@ -69,6 +69,23 @@ class UI():
                 w.append((t,lek["Fach"]))
             o[day]= w
         return o
+    
+    def temp(self,info:dict)->None:
+        v      = info["verschiebungen"]
+        i      = info["inactive"]
+        vs     = ""
+        ina    = ""
+
+        for el in v:
+            vs+=f"[fach]{el['old'][0]} -> {el['old'][0]}\n"
+            vs+=f"[zeit]{el['old'][1]} -> {el['old'][1]}\n"
+            self.cons.print(Panel(vs,title="Verschiebungen",width=30))
+            vs = ""
+        for el in i:
+            ina+=f"[fach]{el['old'][0]} -> {el['old'][0]}\n"
+            ina+=f"[zeit]{el['old'][1]} -> {el['old'][1]}\n"
+            self.cons.print(Panel(ina,title="Inaktiv",width=30))
+            ina = ""
 
     def week(self,info:dict)->None:
         week = Table(title="[text][bold]Deine Woche: ")

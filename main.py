@@ -55,7 +55,10 @@ class Main():
         exit()
 
     def cmd_temp(self)->None:
-        pass
+        temps  = self.handler.get_temps()
+        self.ui.temp(temps)
+
+
     def cmd_ui(self)->None:
         cmd,d = self.ui.tui()
         if cmd   == "list":

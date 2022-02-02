@@ -56,6 +56,9 @@ class Handler():
     def get_time(self)->str:
         return datetime.datetime.now().strftime("%H:%M")
     
+    def get_temps(self)->dict:
+        return self.temp_loader.get_plan()
+    
     def insert_temps(self,plan:dict)->dict:
         temp = self.temp_loader.get_plan()
         for el in temp["verschiebungen"]:

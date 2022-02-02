@@ -45,8 +45,8 @@ class UI():
         ]
 
     def tui(self)->tuple:
-        ans = prompt(self.ui_qs,style=self.qstyle)
-        d = ""
+        ans = prompt(self.ui_qs,style = self.qstyle)
+        d   = ""
         cmd = ans["cmd"]
         if cmd== "day":
             d = prompt(self.day_qs,style=self.qstyle)["day"]

@@ -65,6 +65,7 @@ class Main():
             self.cmd_list()
         elif cmd == "day":
             self.cmd_day(d)
+            print(d)
         elif cmd == "now":
             self.cmd_now()
         elif cmd == "add":

@@ -33,7 +33,7 @@ class UI():
             'type'    : 'list',
             'name'    : 'cmd',
             'message' : 'Was willst du machen',
-            'choices' : [ 'list', 'day', 'now', Separator("==>edit<=="), 'add', 'del' ]
+            'choices' : ['list','day','now',Separator("==>-<=="),'add','del',Separator("==>-<=="),'temp']
         } ]
         self.temp_qs=[
             {
@@ -86,7 +86,7 @@ class UI():
 
             for el in v:
                 vs=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
-                self.cons.print(Panel(vs,title="Verschiebungen",width=30))
+                self.cons.print(Panel(vs,title="Verschiebungen"if el["active"] else "Inaktiv",width=30))
             for el in i:
                 ina=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
                 self.cons.print(Panel(ina,title="Inaktiv",width=30))

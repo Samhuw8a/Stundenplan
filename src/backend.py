@@ -63,7 +63,7 @@ class Handler():
         self.temp_loader.set_plan(temps)
     
     def insert_temps(self,plan:dict)->dict:
-        temp = self.temp_loader.get_plan()
+        temp: dict = self.temp_loader.get_plan()
         for el in temp["verschiebungen"]:
             o = el["old"]
             n = el["new"]

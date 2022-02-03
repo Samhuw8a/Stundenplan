@@ -9,14 +9,15 @@ TEMP = "src/Temps.json"
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        cmds:tuple     = ("list", "day", "now", "add", "del", "temp")
-        flags:tuple    = ("-h", "--help", "-d")
-        self.handler   = backend
-        self.editor    = editor
-        self.ui        = frontend
-        self.args      = Args(cmds,flags)
-        self.weekdays  = ("Mo","Di","Mi","Do","Fr","Sa","So")
-        self.usage_str = """[red]Usage:
+        self.cmds:tuple = ("list", "day", "now", "add", "del", "temp")
+        flags:tuple     = ("-h", "--help", "-d")
+        self.handler    = backend
+        self.editor     = editor
+        self.ui         = frontend
+        self.ui.cmds    = self.cmds
+        self.args       = Args(self.cmds,flags)
+        self.weekdays   = ("Mo","Di","Mi","Do","Fr","Sa","So")
+        self.usage_str  = """[red]Usage:
         [blue]main [list,day,now,add,del] [-d, -h, --help]
 
         [usage]list:
@@ -80,6 +81,8 @@ class Main():
             self.cmd_add()
         elif cmd == "del":
             self.cmd_del()
+        elif cmd == "temp":
+            self.cmd_temp()
 
     def cmd_del(self)->None:
         p = self.handler.Stundenplan

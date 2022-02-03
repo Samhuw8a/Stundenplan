@@ -9,7 +9,7 @@ class Editor():
                 'type'    : 'list',
                 'name'    : 'tag',
                 'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+                'choices' : self.weekdays
                 }, {
                 'type'    : 'input',
                 'name'    : 'start',
@@ -21,7 +21,7 @@ class Editor():
                 'type'    : 'list',
                 'name'    : 'tag',
                 'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+                'choices' : self.weekdays
             }, {
                 'type'    : 'input',
                 'name'    : 'zimmer',
@@ -52,8 +52,8 @@ class Editor():
             {
                 'type': 'list',
                 'name': 'tag',
-                'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+                'message' : 'An welchen Wochentag ist die Zu verschiebende Lektion',
+                'choices' : self.weekdays
             },
             {
                 'type'    : 'input',
@@ -64,13 +64,13 @@ class Editor():
             {
                 'type': 'list',
                 'name': 'n_tag',
-                'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+                'message' : 'Verschiebungstag',
+                'choices' : self.weekdays
             },
             {
                 'type'    : 'input',
                 'name'    : 'n_start',
-                'message' : 'Start der Lektion',
+                'message' : 'Start der verschobenen Lektion',
                 'validate': self.is_valid_time
             }
         ]
@@ -78,13 +78,13 @@ class Editor():
             {
                 'type': 'list',
                 'name': 'tag',
-                'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+                'message' : 'Tag der verschobenen Lektion',
+                'choices' : self.weekdays
             },
             {
                 'type'    : 'input',
                 'name'    : 'start',
-                'message' : 'Start der Lektion',
+                'message' : 'Start der verschobenen Lektion',
                 'validate': self.is_valid_time
             }
         ]
@@ -105,9 +105,10 @@ class Editor():
         ans = prompt(self.temp_del)
         t = ans["tag"]
         s = ans["start"]
-        for el in info["verschiebungen"]:
+        versch = info["verschiebungen"]
+        for el in versch:
             if el["new"][0] == t and el["new"][1] == s: 
-                info["verschiebungen"][info["verschiebungen"].index(el)]["active"] = False
+                info["verschiebungen"][versch.index(el)]["active"] = False
         return info
 
     def delete_lecons(self,plan:dict)->dict:

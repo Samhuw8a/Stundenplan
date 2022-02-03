@@ -83,19 +83,13 @@ class UI():
         if cmd == "list":
             v      = info["verschiebungen"]
             i      = info["inactive"]
-            vs     = ""
-            ina    = ""
 
             for el in v:
-                vs+=f"[fach]{el['old'][0]} -> {el['new'][0]}\n"
-                vs+=f"[zeit]{el['old'][1]} -> {el['new'][1]}\n"
+                vs=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
                 self.cons.print(Panel(vs,title="Verschiebungen",width=30))
-                vs = ""
             for el in i:
-                ina+=f"[fach]{el['old'][0]} -> {el['new'][0]}\n"
-                ina+=f"[zeit]{el['old'][1]} -> {el['new'][1]}\n"
+                ina=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
                 self.cons.print(Panel(ina,title="Inaktiv",width=30))
-                ina = ""
             return ""
         else:
             return cmd

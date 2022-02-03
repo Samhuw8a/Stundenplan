@@ -24,6 +24,8 @@ class Main():
         [usage]day [-d]:
             [text]list all lecons in the currrent day.
             [text]if -d is set it will list all items at that day
+
+
         [usage]now:
             [text]Show your current lecon
         [usage]add:
@@ -56,7 +58,13 @@ class Main():
 
     def cmd_temp(self)->None:
         temps  = self.handler.get_temps()
-        self.ui.temp(temps)
+        cmd = self.ui.temp(temps)
+        if cmd == "add":
+            versch = self.editor.add_temp()
+            temps["verschiebungen"].append(versch)
+        elif cmd == "rem":
+            temps = self.editor.del_temp(temps)
+        self.handler.set_temps(temps)
 
 
     def cmd_ui(self)->None:

@@ -1,4 +1,4 @@
 # TODO:
-- Temp editor
-- Temp lister
+- Temp lister updated nicht wenn inaktiv
+- Temp reactivator
 

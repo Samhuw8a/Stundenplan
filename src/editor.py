@@ -48,6 +48,67 @@ class Editor():
                 'validate': self.is_valid_time
             },
         ]
+        self.temp_add=[
+            {
+                'type': 'list',
+                'name': 'tag',
+                'message' : 'Welcher Wochentag willst du wählen',
+                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+            },
+            {
+                'type'    : 'input',
+                'name'    : 'start',
+                'message' : 'Start der Lektion',
+                'validate': self.is_valid_time
+            },
+            {
+                'type': 'list',
+                'name': 'n_tag',
+                'message' : 'Welcher Wochentag willst du wählen',
+                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+            },
+            {
+                'type'    : 'input',
+                'name'    : 'n_start',
+                'message' : 'Start der Lektion',
+                'validate': self.is_valid_time
+            }
+        ]
+        self.temp_del=[
+            {
+                'type': 'list',
+                'name': 'tag',
+                'message' : 'Welcher Wochentag willst du wählen',
+                'choices' : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So' ],
+            },
+            {
+                'type'    : 'input',
+                'name'    : 'start',
+                'message' : 'Start der Lektion',
+                'validate': self.is_valid_time
+            }
+        ]
+
+    def add_temp(self)->dict:
+        ans = prompt(self.temp_add)
+        t   = ans["tag"]
+        nt  = ans["n_tag"]
+        s   = ans["start"]
+        ns  = ans["n_start"]
+        return {
+            "old":[t,s],
+            "new":[nt,ns],
+            "active":True
+        }
+
+    def del_temp(self,info:dict)->dict:
+        ans = prompt(self.temp_del)
+        t = ans["tag"]
+        s = ans["start"]
+        for el in info["verschiebungen"]:
+            if el["new"][0] == t and el["new"][1] == s: 
+                info["verschiebungen"][info["verschiebungen"].index(el)]["active"] = False
+        return info
 
     def delete_lecons(self,plan:dict)->dict:
         ans   = prompt(self.del_qs)

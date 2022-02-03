@@ -35,6 +35,14 @@ class UI():
             'message' : 'Was willst du machen',
             'choices' : [ 'list', 'day', 'now', Separator("==>edit<=="), 'add', 'del' ]
         } ]
+        self.temp_qs=[
+            {
+                'type'    : 'list',
+                'name'    : 'cmd',
+                'message' : 'Was willst du machen',
+                'choices' : ['list','add', 'rem','reactivate']
+            }
+        ]
         self.day_qs=[
             {
                 'type'    : 'list' ,
@@ -70,22 +78,27 @@ class UI():
             o[day]= w
         return o
     
-    def temp(self,info:dict)->None:
-        v      = info["verschiebungen"]
-        i      = info["inactive"]
-        vs     = ""
-        ina    = ""
+    def temp(self,info:dict)->str:
+        cmd = prompt(self.temp_qs)["cmd"]
+        if cmd == "list":
+            v      = info["verschiebungen"]
+            i      = info["inactive"]
+            vs     = ""
+            ina    = ""
 
-        for el in v:
-            vs+=f"[fach]{el['old'][0]} -> {el['old'][0]}\n"
-            vs+=f"[zeit]{el['old'][1]} -> {el['old'][1]}\n"
-            self.cons.print(Panel(vs,title="Verschiebungen",width=30))
-            vs = ""
-        for el in i:
-            ina+=f"[fach]{el['old'][0]} -> {el['old'][0]}\n"
-            ina+=f"[zeit]{el['old'][1]} -> {el['old'][1]}\n"
-            self.cons.print(Panel(ina,title="Inaktiv",width=30))
-            ina = ""
+            for el in v:
+                vs+=f"[fach]{el['old'][0]} -> {el['new'][0]}\n"
+                vs+=f"[zeit]{el['old'][1]} -> {el['new'][1]}\n"
+                self.cons.print(Panel(vs,title="Verschiebungen",width=30))
+                vs = ""
+            for el in i:
+                ina+=f"[fach]{el['old'][0]} -> {el['new'][0]}\n"
+                ina+=f"[zeit]{el['old'][1]} -> {el['new'][1]}\n"
+                self.cons.print(Panel(ina,title="Inaktiv",width=30))
+                ina = ""
+            return ""
+        else:
+            return cmd
 
     def week(self,info:dict)->None:
         week = Table(title="[text][bold]Deine Woche: ")

@@ -58,6 +58,9 @@ class Handler():
     
     def get_temps(self)->dict:
         return self.temp_loader.get_plan()
+
+    def set_temps(self,temps:dict)->None:
+        self.temp_loader.set_plan(temps)
     
     def insert_temps(self,plan:dict)->dict:
         temp = self.temp_loader.get_plan()
@@ -88,10 +91,6 @@ class Handler():
     @property
     def Stundenplan(self)->dict:
         return self.insert_temps(self.loader.get_plan())
-
-    @property
-    def Temps(self)->dict:
-        return self.loader.get_plan()
 
     def sort(self,day:dict)->dict:
         lookup: dict = {}

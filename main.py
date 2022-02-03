@@ -58,15 +58,18 @@ class Main():
         exit()
 
     def cmd_temp(self)->None:
-        temps  = self.handler.get_temps()
-        cmd = self.ui.temp(temps)
+        temps = self.handler.get_temps()
+        temps = self.handler.update_tems(temps)
+        cmd   = self.ui.temp(temps)
         if cmd == "add":
             versch = self.editor.add_temp()
             temps["verschiebungen"].append(versch)
         elif cmd == "rem":
             temps = self.editor.del_temp(temps)
-        self.handler.set_temps(temps)
+        elif cmd == "reactivate":
+            temps = self.editor.reac_temp(temps)
 
+        self.handler.set_temps(temps)
 
     def cmd_ui(self)->None:
         cmd,d = self.ui.tui()
@@ -74,7 +77,6 @@ class Main():
             self.cmd_list()
         elif cmd == "day":
             self.cmd_day(d)
-            print(d)
         elif cmd == "now":
             self.cmd_now()
         elif cmd == "add":

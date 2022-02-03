@@ -1,5 +1,17 @@
 {
-    "verschiebungen": [],
+    "verschiebungen": [
+        {
+            "old": [
+                "Mo",
+                "8:00"
+            ],
+            "new": [
+                "Di",
+                "9:00"
+            ],
+            "active": false
+        }
+    ],
     "inactive": [
         {
             "old": [
@@ -9,17 +21,6 @@
             "new": [
                 "Mi",
                 "10:40"
-            ],
-            "active": false
-        },
-        {
-            "old": [
-                "Mo",
-                "8:00"
-            ],
-            "new": [
-                "Di",
-                "9:00"
             ],
             "active": false
         }

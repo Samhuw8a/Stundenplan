@@ -89,6 +89,16 @@ class Editor():
             }
         ]
 
+    def reac_temp(self, info:dict)->dict:
+        ans = prompt(self.temp_del)
+        t = ans["tag"]
+        s = ans["start"]
+        versch = info["inactive"]
+        for el in info["inactive"]:
+            if el["new"][0] == t and el["new"][1] == s: 
+                info["inactive"][versch.index(el)]["active"] = True
+        return info
+
     def add_temp(self)->dict:
         ans = prompt(self.temp_add)
         t   = ans["tag"]

@@ -61,18 +61,25 @@ class Handler():
 
     def set_temps(self,temps:dict)->None:
         self.temp_loader.set_plan(temps)
+
+    def update_tems(self,temp:dict)->dict:
+        for el in temp["verschiebungen"]:
+            if not el["active"]:
+                temp["verschiebungen"].remove(el)
+                temp["inactive"].append(el)
+        for el in temp["inactive"]:
+            if el["active"]:
+                temp["inactive"].remove(el)
+                temp["verschiebungen"].append(el)
+        return temp
     
     def insert_temps(self,plan:dict)->dict:
         temp: dict = self.temp_loader.get_plan()
         for el in temp["verschiebungen"]:
             o = el["old"]
             n = el["new"]
-            if el["active"]:
-                plan[n[0]][n[1]] = plan[o[0]][o[1]]
-                del plan[o[0]][o[1]]
-            else:
-                temp["verschiebungen"].remove(el)
-                temp["inactive"].append(el)
+            plan[n[0]][n[1]] = plan[o[0]][o[1]]
+            del plan[o[0]][o[1]]
             plan[n[0]] = self.sort(plan[n[0]])
 
         self.temp_loader.set_plan(temp)

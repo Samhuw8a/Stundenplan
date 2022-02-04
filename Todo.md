@@ -1,2 +1,2 @@
 # TODO:
-- Lecon editor
+- Generelle updates

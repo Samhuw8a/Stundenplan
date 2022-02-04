@@ -1,9 +1,9 @@
-from rich.console import Console
-from rich.theme   import Theme
-from rich.panel   import Panel
-from rich.table   import Table
-from itertools    import zip_longest
-from PyInquirer   import prompt,style_from_dict,Token
+from rich.console  import Console
+from rich.theme    import Theme
+from rich.panel    import Panel
+from rich.table    import Table
+from itertools     import zip_longest
+from PyInquirer    import prompt,style_from_dict,Token
 from src.questions import UI_qs,Temp_qs,Day_qs
 
 class UI():

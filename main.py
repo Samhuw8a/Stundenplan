@@ -9,7 +9,7 @@ TEMP = "src/Temps.json"
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        self.cmds:tuple = ("list", "day", "now", "add", "del", "temp")
+        self.cmds:tuple = ("list", "day", "now", "add", "del", "ed", "temp")
         flags:tuple     = ("-h", "--help", "-d")
         self.handler    = backend
         self.editor     = editor
@@ -55,6 +55,8 @@ class Main():
                     self.cmd_add()
                 elif cmd == "del":
                     self.cmd_del()
+                elif cmd == "ed":
+                    self.cmd_ed()
         exit()
 
     def cmd_temp(self)->None:
@@ -87,11 +89,19 @@ class Main():
             self.cmd_del()
         elif cmd == "temp":
             self.cmd_temp()
+        elif cmd == "ed":
+            self.cmd_ed()
+
+    def cmd_ed(self)->None:
+        p = self.handler.Stundenplan
+        while True:
+            p = self.editor.edit_lecons(p)
+            if input("Nochmal Y/n").lower() == "n": break
+        self.handler.loader.set_plan(p)
 
     def cmd_del(self)->None:
         p = self.handler.Stundenplan
         while True:
-            self.cmd_list()
             p = self.editor.delete_lecons(p)
             if input("Nochmal Y/n").lower() == "n": break
         self.handler.loader.set_plan(p)

@@ -33,7 +33,7 @@ class UI():
             'type'    : 'list',
             'name'    : 'cmd',
             'message' : 'Was willst du machen',
-            'choices' : ['list','day','now',Separator("==>-<=="),'add','del',Separator("==>-<=="),'temp']
+            'choices' : ['list','day','now',Separator("==>-<=="),'add','del','ed',Separator("==>-<=="),'temp']
         } ]
         self.temp_qs=[
             {

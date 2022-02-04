@@ -48,6 +48,26 @@ class Editor():
                 'validate': self.is_valid_time
             },
         ]
+        self.edit_qs=[
+            {
+                'type'    : 'list',
+                'name'    : 'tag',
+                'message' : 'Welcher Wochentag willst du wählen',
+                'choices' : self.weekdays
+                }, {
+                'type'    : 'input',
+                'name'    : 'start',
+                'message' : 'Startzeit deiner Lektion',
+                'validate': self.is_valid_time
+            },
+            {
+                'type': 'list',
+                'name': 'cmd',
+                'message': 'was willst du bearbeiten',
+                'choices':["Zimmer","Fach","Anzahl_Lek","Ende","Start"]
+            }
+
+        ]
         self.temp_add=[
             {
                 'type': 'list',
@@ -120,6 +140,53 @@ class Editor():
             if el["new"][0] == t and el["new"][1] == s: 
                 info["verschiebungen"][versch.index(el)]["active"] = False
         return info
+
+    def edit_lecons(self,plan:dict)->dict:
+        ans = prompt(self.edit_qs)
+        t = ans["tag"]
+        s = ans["start"]
+        cmd = ans["cmd"]
+        if cmd == "Zimmer":
+            zimmer = prompt([{
+                'type': 'input',
+                'name': 'cmd',
+                'message': 'Zimmer'
+            }])["cmd"]
+            plan[t][s]["Zimmer"]=zimmer
+
+        elif cmd == "Fach":
+            zimmer = prompt([{
+                'type': 'input',
+                'name': 'cmd',
+                'message': 'Zimmer'
+            }])["cmd"]
+            plan[t][s]["Zimmer"]=zimmer
+
+        elif cmd == "Anzahl_Lek":
+            zimmer = prompt([{
+                'type': 'input',
+                'name': 'cmd',
+                'message': 'Zimmer'
+            }])["cmd"]
+            plan[t][s]["Zimmer"]=zimmer
+
+        elif cmd == "Ende":
+            zimmer = prompt([{
+                'type': 'input',
+                'name': 'cmd',
+                'message': 'Zimmer'
+            }])["cmd"]
+            plan[t][s]["Zimmer"]=zimmer
+
+        elif cmd == "Start":
+            zimmer = prompt([{
+                'type': 'input',
+                'name': 'cmd',
+                'message': 'Zimmer'
+            }])["cmd"]
+            plan[t][s]["Zimmer"]=zimmer
+        return plan
+        #TODO: edits
 
     def delete_lecons(self,plan:dict)->dict:
         ans   = prompt(self.del_qs)

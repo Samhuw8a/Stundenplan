@@ -1,108 +1,15 @@
 import json
 from PyInquirer import prompt
+from src.questions import delete_lec,create_lec,edit_input,add_temps,delete_temps,Zimmer,Fach,Anzahl_Lek,Ende,Start
 
 class Editor():
     def __init__ (self)->None:
         self.weekdays=("Mo","Di","Mi","Do","Fr","Sa","So")
-        self.del_qs=[
-            {
-                'type'    : 'list',
-                'name'    : 'tag',
-                'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : self.weekdays
-                }, {
-                'type'    : 'input',
-                'name'    : 'start',
-                'message' : 'Startzeit deiner Lektion',
-                'validate': self.is_valid_time
-            }]
-        self.create_qs=[
-            {
-                'type'    : 'list',
-                'name'    : 'tag',
-                'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : self.weekdays
-            }, {
-                'type'    : 'input',
-                'name'    : 'zimmer',
-                'message' : 'Zimmer'
-            }, {
-                'type'    : 'input',
-                'name'    : 'fach',
-                'message' : 'Fach',
-                'validate': lambda x: x.isalpha()
-            }, {
-                'type'    : 'input',
-                'name'    : 'lek',
-                'message' : 'Anzahl Lektionen',
-                'validate': lambda x: str(x).isdigit()
-            }, {
-                'type'    : 'input',
-                'name'    : 'start',
-                'message' : 'Start der Lektion',
-                'validate': self.is_valid_time
-            }, {
-                'type'    : 'input',
-                'name'    : 'ende',
-                'message' : 'Ende der Lektion',
-                'validate': self.is_valid_time
-            }]
-        self.edit_qs=[
-            {
-                'type'    : 'list',
-                'name'    : 'tag',
-                'message' : 'Welcher Wochentag willst du wählen',
-                'choices' : self.weekdays
-                }, {
-                'type'    : 'input',
-                'name'    : 'start',
-                'message' : 'Startzeit deiner Lektion',
-                'validate': self.is_valid_time
-            },
-            {
-                'type': 'list',
-                'name': 'cmd',
-                'message': 'was willst du bearbeiten',
-                'choices':["Zimmer","Fach","Anzahl_Lek","Ende","Start"]
-            }]
-        self.temp_add=[
-            {
-                'type': 'list',
-                'name': 'tag',
-                'message' : 'An welchen Wochentag ist die Zu verschiebende Lektion',
-                'choices' : self.weekdays
-            },
-            {
-                'type'    : 'input',
-                'name'    : 'start',
-                'message' : 'Start der Lektion',
-                'validate': self.is_valid_time
-            },
-            {
-                'type': 'list',
-                'name': 'n_tag',
-                'message' : 'Verschiebungstag',
-                'choices' : self.weekdays
-            },
-            {
-                'type'    : 'input',
-                'name'    : 'n_start',
-                'message' : 'Start der verschobenen Lektion',
-                'validate': self.is_valid_time
-            }]
-        self.temp_del=[
-            {
-                'type': 'list',
-                'name': 'tag',
-                'message' : 'Tag der verschobenen Lektion',
-                'choices' : self.weekdays
-            },
-            {
-                'type'    : 'input',
-                'name'    : 'start',
-                'message' : 'Start der verschobenen Lektion',
-                'validate': self.is_valid_time
-            }]
+        self.del_qs = delete_lec
+        self.create_qs=create_lec
+        self.edit_qs=edit_input
+        self.temp_add=add_temps
+        self.temp_del=delete_temps
 
     def reac_temp(self, info:dict)->dict:
         ans = prompt(self.temp_del)
@@ -142,23 +49,23 @@ class Editor():
         s   = ans["start"]
         cmd = ans["cmd"]
         if cmd == "Zimmer":
-            zimmer = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Zimmer' }])["cmd"]
+            zimmer = prompt(Zimmer)["cmd"]
             plan[t][s]["Zimmer"]=zimmer
 
         elif cmd == "Fach":
-            fach = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Fach', 'validate': lambda x: x.isalpha() }])["cmd"]
+            fach = prompt(Fach)["cmd"]
             plan[t][s]["Fach"]=fach
 
         elif cmd == "Anzahl_Lek":
-            anz = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Anzahl_Lek', 'validate': lambda x: str(x).isdigit() }])["cmd"]
+            anz = prompt(Anzahl_Lek)["cmd"]
             plan[t][s]["Anzahl_Lek"]=anz
 
         elif cmd == "Ende":
-            ende = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Ende', 'validate': self.is_valid_time }])["cmd"]
+            ende = prompt(Ende)["cmd"]
             plan[t][s]["Ende"]=ende
 
         elif cmd == "Start":
-            start = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Start', 'validate': self.is_valid_time }])["cmd"]
+            start = prompt(Start)["cmd"]
             plan[t][s]["Start"]=start
         return plan
 
@@ -169,15 +76,6 @@ class Editor():
         del plan[day][start]
         return plan
 
-    def is_valid_time(self, time:str)->bool:
-        try:
-            int(time.split(":")[0])
-            int(time.split(":")[1])
-            return True
-        except:
-            pass
-
-        return False
 
     def create_lecon(self)->tuple:
         ans        = prompt(self.create_qs)

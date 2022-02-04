@@ -3,7 +3,8 @@ from rich.theme   import Theme
 from rich.panel   import Panel
 from rich.table   import Table
 from itertools    import zip_longest
-from PyInquirer   import prompt, Separator,style_from_dict,Token
+from PyInquirer   import prompt,style_from_dict,Token
+from src.questions import UI_qs,Temp_qs,Day_qs
 
 class UI():
     def __init__(self)->None:
@@ -29,28 +30,9 @@ class UI():
             Token.Question     : 'underline bold',
             Token.Separator    : '#fadc84'
         })
-        self.ui_qs=[ {
-            'type'    : 'list',
-            'name'    : 'cmd',
-            'message' : 'Was willst du machen',
-            'choices' : ['list','day','now',Separator("==>-<=="),'add','del','ed',Separator("==>-<=="),'temp']
-        } ]
-        self.temp_qs=[
-            {
-                'type'    : 'list',
-                'name'    : 'cmd',
-                'message' : 'Was willst du machen',
-                'choices' : ['list','add', 'rem','reactivate','clear']
-            }
-        ]
-        self.day_qs=[
-            {
-                'type'    : 'list' ,
-                'name'    : 'day',
-                'message' : 'welcher Tag willst du',
-                'choices' : [ "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-            }
-        ]
+        self.ui_qs=UI_qs
+        self.temp_qs=Temp_qs
+        self.day_qs=Day_qs
 
     def tui(self)->tuple:
         ans = prompt(self.ui_qs,style = self.qstyle)

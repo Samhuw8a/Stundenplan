@@ -42,7 +42,8 @@ class Handler():
         self.loader      = Loader(path)
         self.temp_loader = Loader(temps)
         self.weekdays    = ("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So")
-        self.lookup      = {self.weekdays[i]: str(i) for i in range(7)}
+        self.lookup      = { str(i): self.weekdays[i] for i in range(7)}
+        print(self.lookup)
 
     def Wday_from_date (self,date:Tuple[int,int,int]) -> str:
         y,m,d = date

@@ -155,36 +155,41 @@ class Editor():
             plan[t][s]["Zimmer"]=zimmer
 
         elif cmd == "Fach":
-            zimmer = prompt([{
+            fach = prompt([{
                 'type': 'input',
                 'name': 'cmd',
-                'message': 'Zimmer'
+                'message': 'Fach',
+                'validate': lambda x: x.isalpha()
             }])["cmd"]
-            plan[t][s]["Zimmer"]=zimmer
+            plan[t][s]["Fach"]=fach
 
         elif cmd == "Anzahl_Lek":
-            zimmer = prompt([{
+            anz = prompt([{
                 'type': 'input',
                 'name': 'cmd',
-                'message': 'Zimmer'
+                'message': 'Anzahl_Lek',
+                'validate': lambda x: str(x).isdigit()
             }])["cmd"]
-            plan[t][s]["Zimmer"]=zimmer
+            plan[t][s]["Anzahl_Lek"]=anz
 
         elif cmd == "Ende":
-            zimmer = prompt([{
+            ende = prompt([{
                 'type': 'input',
                 'name': 'cmd',
-                'message': 'Zimmer'
+                'message': 'Ende',
+                'validate': self.is_valid_time
             }])["cmd"]
-            plan[t][s]["Zimmer"]=zimmer
+            plan[t][s]["Ende"]=ende
 
         elif cmd == "Start":
-            zimmer = prompt([{
+            start = prompt([{
                 'type': 'input',
                 'name': 'cmd',
-                'message': 'Zimmer'
+                'message': 'Start',
+                'validate': self.is_valid_time
+
             }])["cmd"]
-            plan[t][s]["Zimmer"]=zimmer
+            plan[t][s]["Start"]=start
         return plan
         #TODO: edits
 

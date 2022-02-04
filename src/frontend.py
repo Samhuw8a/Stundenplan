@@ -40,7 +40,7 @@ class UI():
                 'type'    : 'list',
                 'name'    : 'cmd',
                 'message' : 'Was willst du machen',
-                'choices' : ['list','add', 'rem','reactivate']
+                'choices' : ['list','add', 'rem','reactivate','clear']
             }
         ]
         self.day_qs=[
@@ -58,7 +58,6 @@ class UI():
         cmd = ans["cmd"]
         if cmd== "day":
             d = prompt(self.day_qs,style=self.qstyle)["day"]
-        print(cmd,d)
         return cmd,d
 
     def usage(self, usage_str:str)->None:
@@ -74,7 +73,8 @@ class UI():
         for day,leks in info.items():
             w = []
             for t,lek in leks.items():
-                w.append((t,lek["Fach"]))
+                if lek != None:
+                    w.append((t,lek["Fach"]))
             o[day]= w
         return o
     

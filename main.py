@@ -68,6 +68,8 @@ class Main():
             temps = self.editor.del_temp(temps)
         elif cmd == "reactivate":
             temps = self.editor.reac_temp(temps)
+        elif cmd == "clear":
+            temps["inactive"] = []
 
         self.handler.set_temps(temps)
 
@@ -123,10 +125,10 @@ class Main():
         self.ui.lecon(info,current_time)
         
 def main()->None:
-    handler = Handler(PATH,TEMP)
+    handler  = Handler(PATH,TEMP)
     frontend = UI()
-    editor = Editor()
-    sp=Main(handler,frontend,editor)
+    editor   = Editor()
+    sp       = Main(handler,frontend,editor)
     sp.run()
 
 if __name__=='__main__':

@@ -1,7 +1,9 @@
 #! /usr/bin/python3
-from src.backend import Handler,Args
+from src.backend import Handler
 from src.frontend import UI
 from src.editor import Editor
+from src.argparser import Args
+from src import usage
 import sys
 
 PATH = "src/Stunden.json"
@@ -9,55 +11,31 @@ TEMP = "src/Temps.json"
 
 class Main():
     def __init__(self,backend,frontend,editor)->None:
-        self.cmds:tuple = ("list", "day", "now", "add", "del", "ed", "temp")
-        flags:tuple     = ("-h", "--help", "-d")
         self.handler    = backend
         self.editor     = editor
         self.ui         = frontend
-        self.ui.cmds    = self.cmds
-        self.args       = Args(self.cmds,flags)
         self.weekdays   = ("Mo","Di","Mi","Do","Fr","Sa","So")
-        self.usage_str  = """[red]Usage:
-        [blue]main [list,day,now,add,del] [-d, -h, --help]
 
-        [usage]list:
-            [text]List all items in your Plan
-        [usage]day [-d]:
-            [text]list all lecons in the currrent day.
-            [text]if -d is set it will list all items at that day
-
-
-        [usage]now:
-            [text]Show your current lecon
-        [usage]add:
-            [text]Add an entry
-        [usage]del:
-            [text]Delete an entry
-        """
-
-    def run(self)->None:
-        s,f = self.args.parse(sys.argv)
-        if 'h' in f or 'help' in f:
-            self.ui.usage(self.usage_str)
-        elif not s:
+    def eval(self,cmd,flags)->None:
+        s,f = cmd,flags
+        if not s:
             self.cmd_ui()
-        else:
-            for cmd in s:
-                if   cmd == "list":
-                    self.cmd_list()
-                elif cmd == "temp":
-                    self.cmd_temp()
-                elif cmd == "day":
-                    self.cmd_day( "" if "d" not in f else f["d"])
-                elif cmd == "now":
-                    self.cmd_now()
-                elif cmd == "add":
-                    self.cmd_add()
-                elif cmd == "del":
-                    self.cmd_del()
-                elif cmd == "ed":
-                    self.cmd_ed()
-        exit()
+            exit()
+        for cmd in s:
+            if   cmd == "list":
+                self.cmd_list()
+            elif cmd == "temp":
+                self.cmd_temp()
+            elif cmd == "day":
+                self.cmd_day( "" if "d" not in f else f["d"])
+            elif cmd == "now":
+                self.cmd_now()
+            elif cmd == "add":
+                self.cmd_add()
+            elif cmd == "del":
+                self.cmd_del()
+            elif cmd == "ed":
+                self.cmd_ed()
 
     def cmd_temp(self)->None:
         temps = self.handler.get_temps()
@@ -135,11 +113,19 @@ class Main():
         self.ui.lecon(info,current_time)
         
 def main()->None:
-    handler  = Handler(PATH,TEMP)
-    frontend = UI()
-    editor   = Editor()
-    sp       = Main(handler,frontend,editor)
-    sp.run()
+    cmds       = ("list", "day", "now", "add", "del", "ed", "temp")
+    flags      = ("-d",)
 
+    handler    = Handler(PATH,TEMP)
+    frontend   = UI()
+    editor     = Editor()
+    main       = Main(handler,frontend,editor)
+    args       = Args(cmds,flags,usage)
+    args.help  = ("help","-h","--help")
+
+
+    cmds,flags = args.parse(sys.argv[1:])
+    main.eval(cmds,flags)
+    
 if __name__=='__main__':
     main()

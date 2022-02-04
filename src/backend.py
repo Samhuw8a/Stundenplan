@@ -1,5 +1,5 @@
 import json
-from typing import Tuple,Dict,List
+from typing import Tuple,Dict
 import datetime
 
 class Args():
@@ -7,7 +7,7 @@ class Args():
         self.cmds  = cmds
         self.flags = flags
 
-    def parse(self,args:List[str])->Tuple[list,dict]:
+    def parse(self,args:list)->Tuple[list,dict]:
         cmds:list  = []
         flags:dict = {}
         i=0
@@ -93,9 +93,9 @@ class Handler():
         return l[d.lower()] if d.lower() in l else self.today()
     
     def is_in_lecon(self,cur:str,targer_start:str,targer_end:str)->bool:
-        c =          int(cur.split(":")[0]          + cur.split(":")[1])
-        s = int(targer_start.split(":")[0] + targer_start.split(":")[1])
-        e =   int(targer_end.split(":")[0]   + targer_end.split(":")[1])
+        c = int(cur.replace(":", ""))
+        s = int(targer_start.replace(":", ""))
+        e = int(targer_end.replace(":", ""))
         return c >= s and c <= e
 
     @property
@@ -106,14 +106,15 @@ class Handler():
         lookup: dict = {int(k.replace( ":","")):{k:day[k]} for k in day.keys()}
         sort  : list = [int(k.replace(":","")) for k in day.keys()]
         sort.sort()
-        return {list(lookup[k].keys())[0] : lookup[k][list(lookup[k].keys)[0]] for k in sort}
+        new ={list(lookup[k].keys())[0] : lookup[k][list(lookup[k].keys())[0]] for k in sort}
+        return new
 
 def main()->None:
     h       = Handler("Stunden.json","Temps.json")
     r       = h.Stundenplan
     r["Mo"] = h.sort(r["Mo"])
     h.loader.set_plan(r)
-    print(h.is_in_lecon("8:50","8:00","8:45"))
+    print(h.is_in_lecon("8:45","8:00","8:45"))
 
 if __name__=='__main__':
     main()

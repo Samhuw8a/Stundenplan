@@ -41,7 +41,8 @@ class Handler():
     def __init__(self,path:str, temps:str)->None:
         self.loader      = Loader(path)
         self.temp_loader = Loader(temps)
-        self.lookup      = { "0":"Mo", "1":"Di", "2":"Mi", "3":"Do", "4":"Fr", "5":"Sa", "6":"So" }
+        self.weekdays    = ("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So")
+        self.lookup      = {self.weekdays[i]: str(i) for i in range(7)}
 
     def Wday_from_date (self,date:Tuple[int,int,int]) -> str:
         y,m,d = date
@@ -67,10 +68,12 @@ class Handler():
             if not el["active"]:
                 temp["verschiebungen"].remove(el)
                 temp["inactive"].append(el)
+
         for el in temp["inactive"]:
             if el["active"]:
                 temp["inactive"].remove(el)
                 temp["verschiebungen"].append(el)
+
         return temp
     
     def insert_temps(self,plan:dict)->dict:
@@ -86,7 +89,7 @@ class Handler():
         return plan
 
     def format_week_string(self,d:str)->str:
-        l={ "mo":"Mo", "di":"Di", "mi":"Mi", "do":"Do", "fr":"Fr", "sa":"Sa", "so":"So" }
+        l={i.lower(): i for i in self.weekdays}
         return l[d.lower()] if d.lower() in l else self.today()
     
     def is_in_lecon(self,cur:str,targer_start:str,targer_end:str)->bool:
@@ -100,20 +103,10 @@ class Handler():
         return self.insert_temps(self.loader.get_plan())
 
     def sort(self,day:dict)->dict:
-        lookup: dict = {}
-        new   : dict = {}
-        sort  : list = []
-
-        for k in day.keys():
-            t         = int(k.replace(":",""))
-            lookup[t] = {k: day[k]}
-            sort.append(t)
+        lookup: dict = {int(k.replace( ":","")):{k:day[k]} for k in day.keys()}
+        sort  : list = [int(k.replace(":","")) for k in day.keys()]
         sort.sort()
-
-        for k in sort:
-            time      = list(lookup[k].keys())[0]
-            new[time] = lookup[k][time]
-        return new
+        return {list(lookup[k].keys())[0] : lookup[k][list(lookup[k].keys)[0]] for k in sort}
 
 def main()->None:
     h       = Handler("Stunden.json","Temps.json")

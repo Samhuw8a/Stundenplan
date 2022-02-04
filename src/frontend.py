@@ -3,7 +3,7 @@ from rich.theme   import Theme
 from rich.panel   import Panel
 from rich.table   import Table
 from itertools    import zip_longest
-from PyInquirer   import prompt, Separator,style_from_dict,Token,style_from_dict,Token
+from PyInquirer   import prompt, Separator,style_from_dict,Token
 
 class UI():
     def __init__(self)->None:

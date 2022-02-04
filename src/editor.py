@@ -1,5 +1,5 @@
 import json
-from PyInquirer import prompt,style_from_dict
+from PyInquirer import prompt
 
 class Editor():
     def __init__ (self)->None:
@@ -46,8 +46,7 @@ class Editor():
                 'name'    : 'ende',
                 'message' : 'Ende der Lektion',
                 'validate': self.is_valid_time
-            },
-        ]
+            }]
         self.edit_qs=[
             {
                 'type'    : 'list',
@@ -65,9 +64,7 @@ class Editor():
                 'name': 'cmd',
                 'message': 'was willst du bearbeiten',
                 'choices':["Zimmer","Fach","Anzahl_Lek","Ende","Start"]
-            }
-
-        ]
+            }]
         self.temp_add=[
             {
                 'type': 'list',
@@ -92,8 +89,7 @@ class Editor():
                 'name'    : 'n_start',
                 'message' : 'Start der verschobenen Lektion',
                 'validate': self.is_valid_time
-            }
-        ]
+            }]
         self.temp_del=[
             {
                 'type': 'list',
@@ -106,8 +102,7 @@ class Editor():
                 'name'    : 'start',
                 'message' : 'Start der verschobenen Lektion',
                 'validate': self.is_valid_time
-            }
-        ]
+            }]
 
     def reac_temp(self, info:dict)->dict:
         ans = prompt(self.temp_del)
@@ -132,9 +127,9 @@ class Editor():
         }
 
     def del_temp(self,info:dict)->dict:
-        ans = prompt(self.temp_del)
-        t = ans["tag"]
-        s = ans["start"]
+        ans    = prompt(self.temp_del)
+        t      = ans["tag"]
+        s      = ans["start"]
         versch = info["verschiebungen"]
         for el in versch:
             if el["new"][0] == t and el["new"][1] == s: 
@@ -143,55 +138,29 @@ class Editor():
 
     def edit_lecons(self,plan:dict)->dict:
         ans = prompt(self.edit_qs)
-        t = ans["tag"]
-        s = ans["start"]
+        t   = ans["tag"]
+        s   = ans["start"]
         cmd = ans["cmd"]
         if cmd == "Zimmer":
-            zimmer = prompt([{
-                'type': 'input',
-                'name': 'cmd',
-                'message': 'Zimmer'
-            }])["cmd"]
+            zimmer = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Zimmer' }])["cmd"]
             plan[t][s]["Zimmer"]=zimmer
 
         elif cmd == "Fach":
-            fach = prompt([{
-                'type': 'input',
-                'name': 'cmd',
-                'message': 'Fach',
-                'validate': lambda x: x.isalpha()
-            }])["cmd"]
+            fach = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Fach', 'validate': lambda x: x.isalpha() }])["cmd"]
             plan[t][s]["Fach"]=fach
 
         elif cmd == "Anzahl_Lek":
-            anz = prompt([{
-                'type': 'input',
-                'name': 'cmd',
-                'message': 'Anzahl_Lek',
-                'validate': lambda x: str(x).isdigit()
-            }])["cmd"]
+            anz = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Anzahl_Lek', 'validate': lambda x: str(x).isdigit() }])["cmd"]
             plan[t][s]["Anzahl_Lek"]=anz
 
         elif cmd == "Ende":
-            ende = prompt([{
-                'type': 'input',
-                'name': 'cmd',
-                'message': 'Ende',
-                'validate': self.is_valid_time
-            }])["cmd"]
+            ende = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Ende', 'validate': self.is_valid_time }])["cmd"]
             plan[t][s]["Ende"]=ende
 
         elif cmd == "Start":
-            start = prompt([{
-                'type': 'input',
-                'name': 'cmd',
-                'message': 'Start',
-                'validate': self.is_valid_time
-
-            }])["cmd"]
+            start = prompt([{ 'type': 'input', 'name': 'cmd', 'message': 'Start', 'validate': self.is_valid_time }])["cmd"]
             plan[t][s]["Start"]=start
         return plan
-        #TODO: edits
 
     def delete_lecons(self,plan:dict)->dict:
         ans   = prompt(self.del_qs)

@@ -60,7 +60,7 @@ class UI():
         if cmd == "list":
             for group in info.values():
                 for el in group:
-                    vs=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
+                    vs=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}"
                     self.cons.print(Panel(vs,title="Verschiebungen"if el["active"] else "Inaktiv",width=30))
 
         return cmd if cmd != "list" else ""

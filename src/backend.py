@@ -63,7 +63,6 @@ class Handler():
             od = plan[o[0]][o[1]] if o[1] in plan[o[0]] else None
             plan[n[0]][n[1]] = od
             plan[o[0]][o[1]] = nd
-            #  del plan[o[0]][o[2]]
             plan[n[0]] = self.sort(plan[n[0]])
 
         self.temp_loader.set_plan(temp)

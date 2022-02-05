@@ -21,6 +21,7 @@ class Main():
         if not s:
             self.cmd_ui()
             exit()
+
         for cmd in s:
             if   cmd == "list":
                 self.cmd_list()

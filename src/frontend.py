@@ -38,7 +38,7 @@ class UI():
         ans = prompt(self.ui_qs,style = self.qstyle)
         d   = ""
         cmd = ans["cmd"]
-        if cmd== "day":
+        if cmd == "day":
             d = prompt(self.day_qs,style=self.qstyle)["day"]
         return cmd,d
 
@@ -46,35 +46,24 @@ class UI():
         self.cons.print(usage_str)
 
     def day(self,lektionen:dict,day:str)->None:
-        self.cons.print(" "*8 +day,style="boldtext")
+        self.cons.print(" "*8 + day,style="boldtext")
         for t,lek in lektionen.items():
             self.lecon(lek,t)
 
     def deconst_week(self,info:dict)->dict:
-        o:dict = {}
-        for day,leks in info.items():
-            w = []
-            for t,lek in leks.items():
-                if lek != None:
-                    w.append((t,lek["Fach"]))
-            o[day]= w
-        return o
+        return {day:[
+            (t,lek["Fach"]) for t,lek in leks.items() if lek != None]
+        for day,leks in info.items()}
     
     def temp(self,info:dict)->str:
         cmd = prompt(self.temp_qs)["cmd"]
         if cmd == "list":
-            v      = info["verschiebungen"]
-            i      = info["inactive"]
+            for group in info.values():
+                for el in group:
+                    vs=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
+                    self.cons.print(Panel(vs,title="Verschiebungen"if el["active"] else "Inaktiv",width=30))
 
-            for el in v:
-                vs=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
-                self.cons.print(Panel(vs,title="Verschiebungen"if el["active"] else "Inaktiv",width=30))
-            for el in i:
-                ina=f"[fach]{el['old'][0]} -> {el['new'][0]}\n[zeit]{el['old'][1]} -> {el['new'][1]}\n"
-                self.cons.print(Panel(ina,title="Inaktiv",width=30))
-            return ""
-        else:
-            return cmd
+        return cmd if cmd != "list" else ""
 
     def week(self,info:dict)->None:
         week = Table(title="[text][bold]Deine Woche: ")
@@ -100,14 +89,10 @@ class UI():
         return h*60+m
 
     def lecon(self,info:dict,start:str)->None:
-        out = ""
         t_left=0
         if info:
             t_left = self.time_left(start,info["Ende"])
-            out += f"[fach]{info['Fach']}\n"
-            out += f"[zimmer]{info['Zimmer']}\n"
-            out += f"[text]{info['Anzahl_Lek']} Lektionen\n"
-            out += f"[zeit]{info['Ende']}"
+            out = f"[fach]{info['Fach']}\n[zimmer]{info['Zimmer']}\n[text]{info['Anzahl_Lek']} Lektionen\n[zeit]{info['Ende']}"
         else:
             out ="[error]Du hast im moment Keine Lektion"
 

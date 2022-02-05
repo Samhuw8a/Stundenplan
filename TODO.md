@@ -1,5 +1,5 @@
 # TODO:
 - [ ] Generelle updates
-- [ ] Besseres input management
+- [x] Besseres input management
 - [ ] settings
 - [x] besser Argparser

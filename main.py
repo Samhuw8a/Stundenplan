@@ -19,24 +19,27 @@ class Main():
     def eval(self,cmd,flags)->None:
         s,f = cmd,flags
         if not s:
-            self.cmd_ui()
-            exit()
+            cmd,d = self.ui.tui()
+        else :
+            cmd = s[0]
+            d = "" if "d"not in f else f["d"]
+        self.run(cmd,d)
 
-        for cmd in s:
-            if   cmd == "list":
-                self.cmd_list()
-            elif cmd == "temp":
-                self.cmd_temp()
-            elif cmd == "day":
-                self.cmd_day( "" if "d" not in f else f["d"])
-            elif cmd == "now":
-                self.cmd_now()
-            elif cmd == "add":
-                self.cmd_add()
-            elif cmd == "del":
-                self.cmd_del()
-            elif cmd == "ed":
-                self.cmd_ed()
+    def run(self,cmd,d)->None:
+        if   cmd == "list":
+            self.cmd_list()
+        elif cmd == "temp":
+            self.cmd_temp()
+        elif cmd == "day":
+            self.cmd_day(d)
+        elif cmd == "now":
+            self.cmd_now()
+        elif cmd == "add":
+            self.cmd_add()
+        elif cmd == "del":
+            self.cmd_del()
+        elif cmd == "ed":
+            self.cmd_ed()
 
     def cmd_temp(self)->None:
         temps = self.handler.get_temps()
@@ -53,23 +56,6 @@ class Main():
             temps["inactive"] = []
 
         self.handler.set_temps(temps)
-
-    def cmd_ui(self)->None:
-        cmd,d = self.ui.tui()
-        if cmd   == "list":
-            self.cmd_list()
-        elif cmd == "day":
-            self.cmd_day(d)
-        elif cmd == "now":
-            self.cmd_now()
-        elif cmd == "add":
-            self.cmd_add()
-        elif cmd == "del":
-            self.cmd_del()
-        elif cmd == "temp":
-            self.cmd_temp()
-        elif cmd == "ed":
-            self.cmd_ed()
 
     def cmd_ed(self)->None:
         p = self.handler.Stundenplan

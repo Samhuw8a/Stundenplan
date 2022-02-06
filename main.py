@@ -22,7 +22,7 @@ class Main():
             cmd,d = self.ui.tui()
         else :
             cmd = s[0]
-            d = "" if "d"not in f else f["d"]
+            d = "" if "d" not in f else f["d"][0]
         self.run(cmd,d)
 
     def run(self,cmd,d)->None:
@@ -101,14 +101,13 @@ class Main():
         
 def main()->None:
     cmds       = ("list", "day", "now", "add", "del", "ed", "temp")
-    flags      = ("-d",)
-
     handler    = Handler(PATH,TEMP)
     frontend   = UI()
     editor     = Editor()
     main       = Main(handler,frontend,editor)
-    args       = Args(cmds,flags,usage)
+    args       = Args(cmds,usage)
     args.help  = ("help","-h","--help")
+    args.flag_add("d",1)
 
 
     cmds,flags = args.parse(sys.argv[1:])

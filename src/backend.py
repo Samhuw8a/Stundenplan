@@ -41,6 +41,7 @@ class Handler():
         self.temp_loader.set_plan(temps)
 
     def update_tems(self,temp:dict)->dict:
+        """Verschiebt die Verschiebungen in die richtige Gruppe"""
         for el in temp["verschiebungen"]:
             if not el["active"]:
                 temp["verschiebungen"].remove(el)
@@ -54,6 +55,7 @@ class Handler():
         return temp
     
     def insert_temps(self,plan:dict)->dict:
+        """Schiebt die Verschiebungen in den Stundenplan"""
         temp: dict = self.temp_loader.get_plan()
         temp = self.update_tems(temp)
         for el in temp["verschiebungen"]:
@@ -69,10 +71,12 @@ class Handler():
         return plan
 
     def format_week_string(self,d:str)->str:
+        """formatier den Wochentag richtig"""
         l={i.lower(): i for i in self.weekdays}
         return l[d.lower()] if d.lower() in l else self.today()
     
     def is_in_lecon(self,cur:str,targer_start:str,targer_end:str)->bool:
+        """testet ob die angegebe Zeit in der lektion ist."""
         c = int(cur.replace(":", ""))
         s = int(targer_start.replace(":", ""))
         e = int(targer_end.replace(":", ""))
@@ -83,6 +87,7 @@ class Handler():
         return self.insert_temps(self.loader.get_plan())
 
     def sort(self,day:dict)->dict:
+        """Sortiert den Stundenplan"""
         lookup: dict = {int(k.replace( ":","")):{k:day[k]} for k in day.keys()}
         sort  : list = [int(k.replace(":","")) for k in day.keys()]
         sort.sort()
